@@ -18,6 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't added any tags yet." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nd-58-5CH" userLabel="NoTagsLabel">
+                                <rect key="frame" x="38.5" y="306" width="243.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Quu-3b-Ste" userLabel="TagTableView">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -40,11 +46,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="XMC-Ef-ZgF"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="4bd-4U-3Yd"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="7nd-58-5CH" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="DDa-Hp-sxB"/>
                             <constraint firstItem="Quu-3b-Ste" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="IbS-tS-cfn"/>
+                            <constraint firstItem="7nd-58-5CH" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="aug-Lz-gig"/>
                             <constraint firstItem="Quu-3b-Ste" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="p7H-S3-idL"/>
                             <constraint firstItem="Quu-3b-Ste" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qGo-uh-mIZ"/>
                             <constraint firstItem="Quu-3b-Ste" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zU7-Zo-1s9"/>
@@ -52,9 +64,15 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="gJN-E1-Xqe">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vTw-zP-V7t"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vTw-zP-V7t">
+                            <connections>
+                                <action selector="openAddTagDialog" destination="BYZ-38-t0r" id="kQv-ce-fiW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="noTagsLabel" destination="7nd-58-5CH" id="fnW-Tr-A5K"/>
+                        <outlet property="tagTableView" destination="Quu-3b-Ste" id="yMN-FD-W7T"/>
                         <segue destination="Z5Y-dX-mh1" kind="show" identifier="CollageSegue" id="whB-9R-LQd"/>
                     </connections>
                 </viewController>
@@ -69,9 +87,25 @@
                     <view key="view" contentMode="scaleToFill" id="jh6-zJ-CDV" userLabel="CollageView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psC-ej-OZS" userLabel="TagLabel">
+                                <rect key="frame" x="0.0" y="96" width="320" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="HsP-cW-EBT" firstAttribute="trailing" secondItem="psC-ej-OZS" secondAttribute="trailing" id="6TM-Qm-mN2"/>
+                            <constraint firstItem="psC-ej-OZS" firstAttribute="leading" secondItem="HsP-cW-EBT" secondAttribute="leading" id="DUX-IH-bOt"/>
+                            <constraint firstItem="psC-ej-OZS" firstAttribute="top" secondItem="HsP-cW-EBT" secondAttribute="top" constant="32" id="yo9-Iv-AO8"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="HsP-cW-EBT"/>
                     </view>
+                    <connections>
+                        <outlet property="tagText" destination="psC-ej-OZS" id="OcN-X7-x8I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxO-Ob-iav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

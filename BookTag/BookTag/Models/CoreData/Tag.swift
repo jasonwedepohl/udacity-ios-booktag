@@ -7,4 +7,10 @@
 
 //dummy class to allow testing before adding Core Data
 class Tag {
+	
+	var text:String
+	
+	init(text: String) {
+		self.text = text
+	}
 }

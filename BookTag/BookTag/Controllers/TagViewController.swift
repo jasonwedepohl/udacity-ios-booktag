@@ -13,18 +13,46 @@ class TagViewController: UIViewController {
 	//MARK: Constants
 	
 	let collageSegueIdentifier = "CollageSegue"
+	let cellIdentifier = "TagCell"
+	
+	//MARK: Outlets
+	
+	@IBOutlet var tagTableView: UITableView!
+	@IBOutlet var noTagsLabel: UILabel!
 	
 	//MARK: Actions
 	
-	@IBAction func addTag() {
-		//TODO: Add tag to core data and segue to collage view with tag as a parameter.
+	@IBAction func openAddTagDialog() {
+		let alert = UIAlertController(title: "Add a tag", message: "", preferredStyle: .alert)
+		
+		alert.addTextField(configurationHandler: nil)
+		
+		alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { [alert] (_) in
+			let textField = alert.textFields![0]
+			
+			//TODO: Add tag to core data
+			
+			let tag = Tag(text: textField.text!)
+			(UIApplication.shared.delegate as! AppDelegate).tags.append(tag)
+			
+			self.performSegue(withIdentifier: self.collageSegueIdentifier, sender: tag)
+		}))
+		
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+		
+		present(alert, animated: true, completion: nil)
 	}
 	
 	//MARK: UIViewController overrides
 	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		//TODO: load all tags from main context into table view
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		//TODO: load all tags from core data main context into table view
+		let tags = (UIApplication.shared.delegate as! AppDelegate).tags
+		tagTableView.reloadData()
+		tagTableView.isHidden = tags.count == 0
+		noTagsLabel.isHidden = tags.count != 0
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,3 +72,43 @@ class TagViewController: UIViewController {
 	}
 }
 
+//MARK: UITableViewDelegate and UITableViewDataSource
+
+extension TagViewController: UITableViewDelegate, UITableViewDataSource {
+	
+	// MARK: UITableViewDataSource
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return (UIApplication.shared.delegate as! AppDelegate).tags.count
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+		let tag = (UIApplication.shared.delegate as! AppDelegate).tags[indexPath.row]
+		
+		cell.textLabel!.text = tag.text
+		
+		return cell
+	}
+	
+	//allow deletion
+	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		return true
+	}
+	
+	//handle deletion
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+		if (editingStyle == .delete) {
+			(UIApplication.shared.delegate as! AppDelegate).tags.remove(at: indexPath.row)
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+		}
+	}
+	
+	// MARK: UITableViewDelegate
+	
+	//go to collage for tag on row tap
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let tag = (UIApplication.shared.delegate as! AppDelegate).tags[indexPath.row]
+		performSegue(withIdentifier: collageSegueIdentifier, sender: tag)
+	}
+}

@@ -13,12 +13,16 @@ class CollageViewController: UIViewController {
 	
 	var tag: Tag!
 	
+	//MARK: Outlets
+	
+	@IBOutlet var tagText: UILabel!
+	
 	//MARK: UIViewController overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+		
+		tagText.text = tag.text
     }
 
 }
