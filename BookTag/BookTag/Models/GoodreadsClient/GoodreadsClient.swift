@@ -71,6 +71,8 @@ class GoodreadsClient {
 				return
 			}
 			
+			let dataString = String(data: data!, encoding: .utf8)
+			
 			//TODO: Try parse GoodreadsResponse - if that fails, try parse <error> - if that succeeds, display "unexpected" error message.
 			
 			//set search result stats on tag so they can be reused

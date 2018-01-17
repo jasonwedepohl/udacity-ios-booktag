@@ -57,8 +57,13 @@ class TagViewController: UIViewController {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == collageSegueIdentifier {
-			guard let collageController = segue.destination as? CollageViewController else {
-				print("Expected segue destination to be CollageViewController but was \(String(describing: segue.destination))")
+			guard let collageNavigationController = segue.destination as? UINavigationController else {
+				print("Expected segue destination to be UINavigationController but was \(String(describing: segue.destination))")
+				return
+			}
+			
+			guard let collageController = collageNavigationController.viewControllers.first as? CollageViewController else {
+				print("Expected segue destination child to be CollageViewController but was \(String(describing: segue.destination))")
 				return
 			}
 			

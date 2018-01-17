@@ -20,6 +20,7 @@
 		4DDB8BC0200FA678007680F9 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BBF200FA678007680F9 /* ResponseHandler.swift */; };
 		4DDB8BC2200FA750007680F9 /* GoodreadsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BC1200FA750007680F9 /* GoodreadsClient.swift */; };
 		4DDB8BC4200FA916007680F9 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BC3200FA916007680F9 /* Book.swift */; };
+		4DDB8BC6200FB4AE007680F9 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BC5200FB4AE007680F9 /* BookCollectionViewCell.swift */; };
 		558F469684C79415D691410E /* Pods_BookTag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06D585D068A0A385D9F8FA /* Pods_BookTag.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		4DDB8BBF200FA678007680F9 /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		4DDB8BC1200FA750007680F9 /* GoodreadsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodreadsClient.swift; sourceTree = "<group>"; };
 		4DDB8BC3200FA916007680F9 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		4DDB8BC5200FB4AE007680F9 /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
 		B5D1B0AB5C62FB1525B3943D /* Pods-BookTag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookTag.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookTag/Pods-BookTag.release.xcconfig"; sourceTree = "<group>"; };
 		DF06D585D068A0A385D9F8FA /* Pods_BookTag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookTag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -103,6 +105,7 @@
 			children = (
 				4DDB8BB4200F8A47007680F9 /* CoreData */,
 				4DDB8BB3200F8A29007680F9 /* GoodreadsClient */,
+				4DDB8BC5200FB4AE007680F9 /* BookCollectionViewCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				4DDB8BC2200FA750007680F9 /* GoodreadsClient.swift in Sources */,
 				4DDB8BBC200F8C14007680F9 /* Tag.swift in Sources */,
 				4D216C8E200E50860061B263 /* TagViewController.swift in Sources */,
+				4DDB8BC6200FB4AE007680F9 /* BookCollectionViewCell.swift in Sources */,
 				4DDB8BB8200F8ACC007680F9 /* WaitingSpinner.swift in Sources */,
 				4DDB8BB6200F8A7F007680F9 /* ErrorAlert.swift in Sources */,
 				4D216C8C200E50860061B263 /* AppDelegate.swift in Sources */,
