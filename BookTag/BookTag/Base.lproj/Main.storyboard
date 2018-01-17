@@ -54,10 +54,28 @@
                     <navigationItem key="navigationItem" id="gJN-E1-Xqe">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="vTw-zP-V7t"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="Z5Y-dX-mh1" kind="show" identifier="CollageSegue" id="whB-9R-LQd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="554" y="128"/>
+            <point key="canvasLocation" x="643" y="131"/>
+        </scene>
+        <!--CollageViewController-->
+        <scene sceneID="gbQ-4O-Jkj">
+            <objects>
+                <viewController id="Z5Y-dX-mh1" userLabel="CollageViewController" customClass="CollageViewController" customModule="BookTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jh6-zJ-CDV" userLabel="CollageView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="HsP-cW-EBT"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dxO-Ob-iav" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1478" y="131"/>
         </scene>
         <!--TagNavigationController-->
         <scene sceneID="730-Zw-eKh">

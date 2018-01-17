@@ -12,6 +12,10 @@
 		4D216C91200E50860061B263 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D216C8F200E50860061B263 /* Main.storyboard */; };
 		4D216C93200E50860061B263 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D216C92200E50860061B263 /* Assets.xcassets */; };
 		4D216C96200E50860061B263 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D216C94200E50860061B263 /* LaunchScreen.storyboard */; };
+		4DDB8BB6200F8A7F007680F9 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BB5200F8A7F007680F9 /* ErrorAlert.swift */; };
+		4DDB8BB8200F8ACC007680F9 /* WaitingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BB7200F8ACC007680F9 /* WaitingSpinner.swift */; };
+		4DDB8BBA200F8B93007680F9 /* CollageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BB9200F8B93007680F9 /* CollageViewController.swift */; };
+		4DDB8BBC200F8C14007680F9 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BBB200F8C14007680F9 /* Tag.swift */; };
 		558F469684C79415D691410E /* Pods_BookTag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06D585D068A0A385D9F8FA /* Pods_BookTag.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +28,10 @@
 		4D216C92200E50860061B263 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D216C95200E50860061B263 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D216C97200E50860061B263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DDB8BB5200F8A7F007680F9 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		4DDB8BB7200F8ACC007680F9 /* WaitingSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingSpinner.swift; sourceTree = "<group>"; };
+		4DDB8BB9200F8B93007680F9 /* CollageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageViewController.swift; sourceTree = "<group>"; };
+		4DDB8BBB200F8C14007680F9 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		B5D1B0AB5C62FB1525B3943D /* Pods-BookTag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookTag.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookTag/Pods-BookTag.release.xcconfig"; sourceTree = "<group>"; };
 		DF06D585D068A0A385D9F8FA /* Pods_BookTag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookTag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -61,14 +69,58 @@
 		4D216C8A200E50860061B263 /* BookTag */ = {
 			isa = PBXGroup;
 			children = (
+				4DDB8BB0200F891D007680F9 /* Controllers */,
+				4DDB8BB1200F892E007680F9 /* Models */,
+				4DDB8BB2200F893D007680F9 /* Utilities */,
 				4D216C8B200E50860061B263 /* AppDelegate.swift */,
-				4D216C8D200E50860061B263 /* TagViewController.swift */,
 				4D216C8F200E50860061B263 /* Main.storyboard */,
 				4D216C92200E50860061B263 /* Assets.xcassets */,
 				4D216C94200E50860061B263 /* LaunchScreen.storyboard */,
 				4D216C97200E50860061B263 /* Info.plist */,
 			);
 			path = BookTag;
+			sourceTree = "<group>";
+		};
+		4DDB8BB0200F891D007680F9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4D216C8D200E50860061B263 /* TagViewController.swift */,
+				4DDB8BB9200F8B93007680F9 /* CollageViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4DDB8BB1200F892E007680F9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4DDB8BB4200F8A47007680F9 /* CoreData */,
+				4DDB8BB3200F8A29007680F9 /* GoodreadsClient */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4DDB8BB2200F893D007680F9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4DDB8BB5200F8A7F007680F9 /* ErrorAlert.swift */,
+				4DDB8BB7200F8ACC007680F9 /* WaitingSpinner.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4DDB8BB3200F8A29007680F9 /* GoodreadsClient */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = GoodreadsClient;
+			sourceTree = "<group>";
+		};
+		4DDB8BB4200F8A47007680F9 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				4DDB8BBB200F8C14007680F9 /* Tag.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		7B1AA853F882A8802FC144D6 /* Frameworks */ = {
@@ -217,8 +269,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DDB8BBC200F8C14007680F9 /* Tag.swift in Sources */,
 				4D216C8E200E50860061B263 /* TagViewController.swift in Sources */,
+				4DDB8BB8200F8ACC007680F9 /* WaitingSpinner.swift in Sources */,
+				4DDB8BB6200F8A7F007680F9 /* ErrorAlert.swift in Sources */,
 				4D216C8C200E50860061B263 /* AppDelegate.swift in Sources */,
+				4DDB8BBA200F8B93007680F9 /* CollageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
