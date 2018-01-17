@@ -63,7 +63,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="gJN-E1-Xqe">
+                    <navigationItem key="navigationItem" title="BookTag" id="gJN-E1-Xqe">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="vTw-zP-V7t">
                             <connections>
                                 <action selector="openAddTagDialog" destination="BYZ-38-t0r" id="kQv-ce-fiW"/>

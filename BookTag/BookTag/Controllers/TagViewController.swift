@@ -68,6 +68,11 @@ class TagViewController: UIViewController {
 			}
 			
 			collageController.tag = tag
+			
+			//set back bar title on Collage view to "Back", not "BookTag"
+			let backItem = UIBarButtonItem()
+			backItem.title = "Back"
+			navigationItem.backBarButtonItem = backItem
 		}
 	}
 }
@@ -79,6 +84,8 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 	// MARK: UITableViewDataSource
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		
+		//TODO: Use Core Data tag count
 		return (UIApplication.shared.delegate as! AppDelegate).tags.count
 	}
 	
@@ -99,6 +106,7 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 	//handle deletion
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 		if (editingStyle == .delete) {
+			//TODO: Delete tag from Core Data main context
 			(UIApplication.shared.delegate as! AppDelegate).tags.remove(at: indexPath.row)
 			tableView.deleteRows(at: [indexPath], with: .automatic)
 		}
@@ -108,6 +116,8 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	//go to collage for tag on row tap
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		
+		//TODO: get tag from Core Data
 		let tag = (UIApplication.shared.delegate as! AppDelegate).tags[indexPath.row]
 		performSegue(withIdentifier: collageSegueIdentifier, sender: tag)
 	}
