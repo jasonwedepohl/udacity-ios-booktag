@@ -12,6 +12,7 @@ class CollageViewController: UIViewController {
 	
 	//MARK: Constants
 	
+	let bookSegueIdentifier = "BookSegue"
 	let cellIdentifier = "BookCell"
 	let cellsPerRow:CGFloat = 3;
 	let cellSpacing:CGFloat = 2;
@@ -88,6 +89,22 @@ class CollageViewController: UIViewController {
 			noBooksLabel.isHidden = false
 		}
 	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == bookSegueIdentifier {
+			guard let bookController = segue.destination as? BookViewController else {
+				print("Expected segue destination to be BookViewController but was \(String(describing: segue.destination))")
+				return
+			}
+			
+			guard let book = sender as? Book else {
+				print("Expected sender to be a book but was \(String(describing: sender))")
+				return
+			}
+			
+			bookController.book = book
+		}
+	}
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransition(to: size, with: coordinator)
@@ -155,6 +172,13 @@ extension CollageViewController: UICollectionViewDataSource, UICollectionViewDel
 		}
 		
 		return cell
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let book = tag.books[indexPath.row]
+		if book.imageData != nil {
+			performSegue(withIdentifier: bookSegueIdentifier, sender: tag.books[indexPath.row])
+		}
 	}
 }
 

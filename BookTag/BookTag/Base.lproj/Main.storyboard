@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--TagViewController-->
+        <!--TagController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="TagViewController" customClass="TagViewController" customModule="BookTag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="TagController" customClass="TagViewController" customModule="BookTag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" userLabel="TagView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -81,10 +81,10 @@
             </objects>
             <point key="canvasLocation" x="643" y="131"/>
         </scene>
-        <!--CollageViewController-->
+        <!--CollageController-->
         <scene sceneID="gbQ-4O-Jkj">
             <objects>
-                <viewController id="Z5Y-dX-mh1" userLabel="CollageViewController" customClass="CollageViewController" customModule="BookTag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Z5Y-dX-mh1" userLabel="CollageController" customClass="CollageViewController" customModule="BookTag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jh6-zJ-CDV" userLabel="CollageView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -181,11 +181,102 @@
                         <outlet property="noBooksLabel" destination="SUQ-fc-sy7" id="QGv-6e-dzq"/>
                         <outlet property="rerollCollageButton" destination="xzJ-I9-ENz" id="4WV-5g-x4c"/>
                         <outlet property="tagText" destination="psC-ej-OZS" id="OcN-X7-x8I"/>
+                        <segue destination="SUX-de-aGb" kind="show" identifier="BookSegue" id="OXK-TQ-UdU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxO-Ob-iav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2325" y="131"/>
+        </scene>
+        <!--BookController-->
+        <scene sceneID="25C-XY-pFT">
+            <objects>
+                <viewController id="SUX-de-aGb" userLabel="BookController" customClass="BookViewController" customModule="BookTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3zn-ag-Qco">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c8f-2Y-2R7">
+                                <rect key="frame" x="8" y="72" width="304" height="488"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHJ-7e-pgn" userLabel="TitleLabel">
+                                        <rect key="frame" x="129" y="0.0" width="46.5" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yu5-KK-7Sj" userLabel="AuthorLabel">
+                                        <rect key="frame" x="122.5" y="38" width="59" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6o8-vf-FTx" userLabel="CoverImage">
+                                        <rect key="frame" x="0.0" y="70" width="304" height="247"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckY-eI-SG9" userLabel="RatingLabel">
+                                        <rect key="frame" x="127.5" y="325" width="49" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DeV-iY-I3m" userLabel="DescriptionLabel">
+                                        <rect key="frame" x="108" y="353.5" width="88" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISBN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfj-3Q-GlL" userLabel="ISBNLabel">
+                                        <rect key="frame" x="133" y="382" width="38" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISBN13" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUu-de-aZY" userLabel="ISBN13Label">
+                                        <rect key="frame" x="124.5" y="410.5" width="55.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publication Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPv-rs-D7b" userLabel="PublicationDateLabel">
+                                        <rect key="frame" x="89.5" y="439" width="125" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of pages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtD-GR-tDd" userLabel="NumberOfPagesLabel">
+                                        <rect key="frame" x="85.5" y="467.5" width="133" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="phQ-Xf-Qxw" firstAttribute="bottom" secondItem="c8f-2Y-2R7" secondAttribute="bottom" constant="8" id="7cy-5L-cID"/>
+                            <constraint firstItem="c8f-2Y-2R7" firstAttribute="top" secondItem="phQ-Xf-Qxw" secondAttribute="top" constant="8" id="Kf7-OK-kEe"/>
+                            <constraint firstItem="phQ-Xf-Qxw" firstAttribute="trailing" secondItem="c8f-2Y-2R7" secondAttribute="trailing" constant="8" id="dLK-vA-EJc"/>
+                            <constraint firstItem="c8f-2Y-2R7" firstAttribute="leading" secondItem="phQ-Xf-Qxw" secondAttribute="leading" constant="8" id="esb-8g-W8F"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="phQ-Xf-Qxw"/>
+                    </view>
+                    <connections>
+                        <outlet property="authorLabel" destination="Yu5-KK-7Sj" id="iPa-M4-IJA"/>
+                        <outlet property="coverImage" destination="6o8-vf-FTx" id="5CP-me-4nd"/>
+                        <outlet property="descriptionLabel" destination="DeV-iY-I3m" id="LU5-Rl-0EI"/>
+                        <outlet property="isbn13Label" destination="MUu-de-aZY" id="y06-VY-M6H"/>
+                        <outlet property="isbnLabel" destination="Sfj-3Q-GlL" id="VQz-5c-KO6"/>
+                        <outlet property="numPagesLabel" destination="qtD-GR-tDd" id="ib1-OD-HcO"/>
+                        <outlet property="publicationYearLabel" destination="MPv-rs-D7b" id="gtK-0v-Ok5"/>
+                        <outlet property="ratingLabel" destination="ckY-eI-SG9" id="grG-Rk-OI2"/>
+                        <outlet property="titleLabel" destination="nHJ-7e-pgn" id="qQo-Va-hKR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YSH-Tz-xsc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3176" y="131"/>
         </scene>
         <!--TagNavigationController-->
         <scene sceneID="730-Zw-eKh">

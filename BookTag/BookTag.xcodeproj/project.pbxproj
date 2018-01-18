@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D0792A0201103BE000B95D7 /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07929F201103BE000B95D7 /* BookViewController.swift */; };
 		4D216C8C200E50860061B263 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D216C8B200E50860061B263 /* AppDelegate.swift */; };
 		4D216C8E200E50860061B263 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D216C8D200E50860061B263 /* TagViewController.swift */; };
 		4D216C91200E50860061B263 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D216C8F200E50860061B263 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		351ED97A2F441284790CE39F /* Pods-BookTag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookTag.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookTag/Pods-BookTag.debug.xcconfig"; sourceTree = "<group>"; };
+		4D07929F201103BE000B95D7 /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
 		4D216C88200E50860061B263 /* BookTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D216C8B200E50860061B263 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D216C8D200E50860061B263 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				4D216C8D200E50860061B263 /* TagViewController.swift */,
 				4DDB8BB9200F8B93007680F9 /* CollageViewController.swift */,
+				4D07929F201103BE000B95D7 /* BookViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				4DDB8BC6200FB4AE007680F9 /* BookCollectionViewCell.swift in Sources */,
 				4DDB8BB8200F8ACC007680F9 /* WaitingSpinner.swift in Sources */,
 				4DDB8BB6200F8A7F007680F9 /* ErrorAlert.swift in Sources */,
+				4D0792A0201103BE000B95D7 /* BookViewController.swift in Sources */,
 				4D216C8C200E50860061B263 /* AppDelegate.swift in Sources */,
 				4DDB8BC0200FA678007680F9 /* ResponseHandler.swift in Sources */,
 				4DDB8BBE200FA608007680F9 /* DisplayError.swift in Sources */,
