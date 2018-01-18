@@ -67,6 +67,10 @@ class CollageViewController: UIViewController {
 		}
 	}
 	
+	@IBAction func goBack(_ sender: Any) {
+		dismiss(animated: true, completion: nil)
+	}
+	
 	//MARK: UIViewController overrides
 	
 	override func viewDidLoad() {
@@ -120,21 +124,35 @@ class CollageViewController: UIViewController {
 //MARK: UICollectionViewDataSource + UICollectionViewDelegate extension
 
 extension CollageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-	func numberOfSections(in collectionView: UICollectionView) -> Int {
+	/*func numberOfSections(in collectionView: UICollectionView) -> Int {
 		
 		//TODO: use FCR
-		return 0
-	}
+	}*/
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		//TODO: use FCR
-		return 0
+		return tag.books.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BookCollectionViewCell
 		
 		//TODO: use FCR
+		let book = tag.books[indexPath.row]
+		
+		cell.imageView.backgroundColor = UIColor.white
+		cell.imageView.contentMode = .scaleAspectFill
+		
+		if let imageData = book.imageData {
+			cell.imageView.image = UIImage(data: imageData)
+			cell.loadingIndicator.stopAnimating()
+			cell.loadingIndicator.isHidden = true
+		}
+		else {
+			cell.loadingIndicator.isHidden = false
+			cell.loadingIndicator.startAnimating()
+			cell.imageView.image = nil
+		}
 		
 		return cell
 	}

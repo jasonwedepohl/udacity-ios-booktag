@@ -8,5 +8,6 @@
 struct DisplayError {
 	static let unexpected = "An unexpected error occurred."
 	static let network = "Could not connect to the Internet."
+	static let parse = "Could not handle data in an unexpected format."
 }
 

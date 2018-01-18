@@ -2,7 +2,6 @@
 //  Book.swift
 //  BookTag
 //
-//  Created by Jason Wedepohl on 2018/01/17.
 //  Copyright © 2018 Jason Wedepohl. All rights reserved.
 //
 
@@ -12,18 +11,17 @@ class Book {
 	let id: String
 	let title: String
 	let author: String
-	let rating: Double
+	let rating: String
 	let imageUrl: String
 	
 	var imageData: Data?
 	var description: String?
 	var isbn: String?
 	var isbn13: String?
-	var publicationYear: Int32?
-	var publicationMonth: Int32?
-	var publicationDay: Int32?
+	var publicationYear: String?
+	var numberOfPages: String?
 	
-	init(id: String, title: String, author: String, rating: Double, imageUrl: String) {
+	init(_ id: String, _ title: String, _ author: String, _ rating: String, _ imageUrl: String) {
 		self.id = id
 		self.title = title
 		self.author = author
@@ -31,12 +29,11 @@ class Book {
 		self.imageUrl = imageUrl
 	}
 	
-	func setDetails(description: String, isbn: String, isbn13: String, publicationYear: Int32, publicationMonth: Int32, publicationDay: Int32) {
+	func setDetails(_ description: String, _ isbn: String, _ isbn13: String, _ publicationYear: String, _ numberOfPages: String) {
 		self.description = description
 		self.isbn = isbn
 		self.isbn13 = isbn13
 		self.publicationYear = publicationYear
-		self.publicationMonth = publicationMonth
-		self.publicationDay = publicationDay
+		self.numberOfPages = numberOfPages
 	}
 }

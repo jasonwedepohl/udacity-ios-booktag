@@ -73,11 +73,6 @@ class TagViewController: UIViewController {
 			}
 			
 			collageController.tag = tag
-			
-			//set back bar title on Collage view to "Back", not "BookTag"
-			let backItem = UIBarButtonItem()
-			backItem.title = "Back"
-			navigationItem.backBarButtonItem = backItem
 		}
 	}
 }

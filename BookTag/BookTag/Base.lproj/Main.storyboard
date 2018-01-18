@@ -74,7 +74,7 @@
                     <connections>
                         <outlet property="noTagsLabel" destination="7nd-58-5CH" id="fnW-Tr-A5K"/>
                         <outlet property="tagTableView" destination="Quu-3b-Ste" id="yMN-FD-W7T"/>
-                        <segue destination="o5H-Ff-VAa" kind="show" identifier="CollageSegue" id="whB-9R-LQd"/>
+                        <segue destination="o5H-Ff-VAa" kind="presentation" identifier="CollageSegue" id="P75-7B-7bI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -134,6 +134,10 @@
                                             <constraint firstItem="c9O-6c-ETd" firstAttribute="leading" secondItem="UKu-k6-uyV" secondAttribute="leading" id="sze-gX-pk2"/>
                                             <constraint firstItem="zGC-at-zI9" firstAttribute="centerX" secondItem="UKu-k6-uyV" secondAttribute="centerX" id="t7L-6g-Ud0"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="c9O-6c-ETd" id="zpY-ZU-o49"/>
+                                            <outlet property="loadingIndicator" destination="zGC-at-zI9" id="fh0-3j-yKu"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -157,9 +161,18 @@
                         <viewLayoutGuide key="safeArea" id="HsP-cW-EBT"/>
                     </view>
                     <navigationItem key="navigationItem" id="XYC-rl-7Ud">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="qbc-wX-NZA">
+                            <connections>
+                                <action selector="goBack:" destination="Z5Y-dX-mh1" id="FzO-a7-SbT"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="action" id="TRa-yB-yOk" userLabel="ShareButton"/>
-                            <barButtonItem systemItem="refresh" id="xzJ-I9-ENz" userLabel="RerollButton"/>
+                            <barButtonItem systemItem="refresh" id="xzJ-I9-ENz" userLabel="RerollButton">
+                                <connections>
+                                    <action selector="rerollCollage" destination="Z5Y-dX-mh1" id="lKf-JE-HVI"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
