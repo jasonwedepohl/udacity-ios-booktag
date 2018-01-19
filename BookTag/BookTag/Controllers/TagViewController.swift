@@ -57,13 +57,9 @@ class TagViewController: UIViewController {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == collageSegueIdentifier {
-			guard let collageNavigationController = segue.destination as? UINavigationController else {
-				print("Expected segue destination to be UINavigationController but was \(String(describing: segue.destination))")
-				return
-			}
 			
-			guard let collageController = collageNavigationController.viewControllers.first as? CollageViewController else {
-				print("Expected segue destination child to be CollageViewController but was \(String(describing: segue.destination))")
+			guard let collageController = segue.destination as? CollageViewController else {
+				print("Expected segue destination to be CollageViewController but was \(String(describing: segue.destination))")
 				return
 			}
 			
@@ -73,6 +69,11 @@ class TagViewController: UIViewController {
 			}
 			
 			collageController.tag = tag
+			
+			//set back bar title on Collage view to "Back", not "Booktag"
+			let backItem = UIBarButtonItem()
+			backItem.title = "Back"
+			navigationItem.backBarButtonItem = backItem
 		}
 	}
 }
@@ -91,6 +92,8 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+		
+		//TODO: Get cell from Core Data (use FRC)
 		let tag = (UIApplication.shared.delegate as! AppDelegate).tags[indexPath.row]
 		
 		cell.textLabel!.text = tag.text

@@ -28,6 +28,7 @@ class CollageViewController: UIViewController {
 	@IBOutlet var bookCollectionView: UICollectionView!
 	@IBOutlet var bookCollectionViewFlowLayout: UICollectionViewFlowLayout!
 	@IBOutlet var rerollCollageButton: UIBarButtonItem!
+	@IBOutlet var shareButton: UIBarButtonItem!
 	@IBOutlet var noBooksLabel: UILabel!
 	
 	//TODO: Hook up Share button
@@ -38,6 +39,7 @@ class CollageViewController: UIViewController {
 		waitingSpinner.show(view)
 		noBooksLabel.isHidden = true
 		rerollCollageButton.isEnabled = false
+		shareButton.isEnabled = false
 		
 		//TODO: delete books for the current tag from the main context
 		
@@ -58,6 +60,7 @@ class CollageViewController: UIViewController {
 			if successful {
 				if self.tag.totalBooks == 0 {
 					self.noBooksLabel.isHidden = false
+					self.rerollCollageButton.isEnabled = false
 				} else {
 					//TODO: fetch books for tag from main context
 					self.bookCollectionView.reloadData()
@@ -87,13 +90,22 @@ class CollageViewController: UIViewController {
 			rerollCollage()
 		} else if (tag.totalBooks == 0) {
 			noBooksLabel.isHidden = false
+			
+			//TODO: Enable share button when all images for collage have been downloaded
+			shareButton.isEnabled = false
+			rerollCollageButton.isEnabled = false
 		}
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == bookSegueIdentifier {
-			guard let bookController = segue.destination as? BookViewController else {
-				print("Expected segue destination to be BookViewController but was \(String(describing: segue.destination))")
+			guard let bookNavigationController = segue.destination as? UINavigationController else {
+				print("Expected segue destination to be UINavigationController but was \(String(describing: segue.destination))")
+				return
+			}
+			
+			guard let bookController = bookNavigationController.viewControllers.first as? BookViewController else {
+				print("Expected segue destination child to be BookViewController but was \(String(describing: segue.destination))")
 				return
 			}
 			

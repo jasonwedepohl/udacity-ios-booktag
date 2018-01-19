@@ -74,7 +74,7 @@
                     <connections>
                         <outlet property="noTagsLabel" destination="7nd-58-5CH" id="fnW-Tr-A5K"/>
                         <outlet property="tagTableView" destination="Quu-3b-Ste" id="yMN-FD-W7T"/>
-                        <segue destination="o5H-Ff-VAa" kind="presentation" identifier="CollageSegue" id="P75-7B-7bI"/>
+                        <segue destination="Z5Y-dX-mh1" kind="show" identifier="CollageSegue" id="7kA-OA-Y1A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -160,11 +160,6 @@
                         <viewLayoutGuide key="safeArea" id="HsP-cW-EBT"/>
                     </view>
                     <navigationItem key="navigationItem" id="XYC-rl-7Ud">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="qbc-wX-NZA">
-                            <connections>
-                                <action selector="goBack:" destination="Z5Y-dX-mh1" id="FzO-a7-SbT"/>
-                            </connections>
-                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="action" id="TRa-yB-yOk" userLabel="ShareButton"/>
                             <barButtonItem systemItem="refresh" id="xzJ-I9-ENz" userLabel="RerollButton">
@@ -179,13 +174,14 @@
                         <outlet property="bookCollectionViewFlowLayout" destination="MgW-0T-E1c" id="rnX-Ea-Kaf"/>
                         <outlet property="noBooksLabel" destination="fbK-ci-G45" id="CgW-De-mOd"/>
                         <outlet property="rerollCollageButton" destination="xzJ-I9-ENz" id="4WV-5g-x4c"/>
+                        <outlet property="shareButton" destination="TRa-yB-yOk" id="NJL-FZ-8eA"/>
                         <outlet property="tagText" destination="psC-ej-OZS" id="OcN-X7-x8I"/>
-                        <segue destination="SUX-de-aGb" kind="show" identifier="BookSegue" id="OXK-TQ-UdU"/>
+                        <segue destination="lCQ-8y-7dS" kind="show" identifier="BookSegue" id="OXK-TQ-UdU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxO-Ob-iav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2325" y="131"/>
+            <point key="canvasLocation" x="1545" y="129"/>
         </scene>
         <!--BookController-->
         <scene sceneID="25C-XY-pFT">
@@ -261,6 +257,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="phQ-Xf-Qxw"/>
                     </view>
+                    <navigationItem key="navigationItem" id="UTR-3o-OvZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="ZB3-wN-oks">
+                            <connections>
+                                <action selector="close" destination="SUX-de-aGb" id="DVI-MZ-TCL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="authorLabel" destination="Yu5-KK-7Sj" id="iPa-M4-IJA"/>
                         <outlet property="coverImage" destination="6o8-vf-FTx" id="5CP-me-4nd"/>
@@ -275,7 +278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YSH-Tz-xsc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3176" y="131"/>
+            <point key="canvasLocation" x="3313" y="129"/>
         </scene>
         <!--TagNavigationController-->
         <scene sceneID="730-Zw-eKh">
@@ -295,23 +298,23 @@
             </objects>
             <point key="canvasLocation" x="-238" y="129"/>
         </scene>
-        <!--CollageNavigationController-->
-        <scene sceneID="Mht-IN-B2Y">
+        <!--Navigation Controller-->
+        <scene sceneID="G0s-5G-qSJ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o5H-Ff-VAa" userLabel="CollageNavigationController" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lCQ-8y-7dS" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="G3e-Fq-RoL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Dfw-4D-BVI">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Z5Y-dX-mh1" kind="relationship" relationship="rootViewController" id="Dgs-eu-0qK"/>
+                        <segue destination="SUX-de-aGb" kind="relationship" relationship="rootViewController" id="3eW-xQ-G7a"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Q0D-27-9WK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xoO-9O-5PW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1477.5" y="130.98591549295776"/>
+            <point key="canvasLocation" x="2447" y="129"/>
         </scene>
     </scenes>
 </document>

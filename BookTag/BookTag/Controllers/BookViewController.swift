@@ -25,6 +25,12 @@ class BookViewController: UIViewController {
 	@IBOutlet var publicationYearLabel: UILabel!
 	@IBOutlet var numPagesLabel: UILabel!
 	
+	//MARK: Actions
+	
+	@IBAction func close() {
+		dismiss(animated: true, completion: nil)
+	}
+	
 	//MARK: UIViewController overrides
 	
 	override func viewDidLoad() {
