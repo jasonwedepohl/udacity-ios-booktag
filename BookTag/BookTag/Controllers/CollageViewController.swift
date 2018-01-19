@@ -46,7 +46,7 @@ class CollageViewController: UIViewController {
 			GoodreadsClient.instance.getBooksForTag(tag, completionForNewCollection(_:_:))
 		} else {
 			//we know the number of pages, so choose a random one
-			GoodreadsClient.instance.getRandomPageOfBooksForTag(tag, completionForNewCollection(_:_:))
+			GoodreadsClient.instance.getRandomPageOfBooksForTag(tag, 0, completionForNewCollection(_:_:))
 		}
 	}
 	

@@ -92,18 +92,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psC-ej-OZS" userLabel="TagLabel">
                                 <rect key="frame" x="0.0" y="96" width="320" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are no books matching this tag." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUQ-fc-sy7" userLabel="NoBooksLabel">
-                                <rect key="frame" x="15.5" y="305.5" width="289.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NyS-Mf-fP6" userLabel="CollageView">
                                 <rect key="frame" x="0.0" y="152" width="320" height="416"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MgW-0T-E1c">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -145,18 +138,24 @@
                                     <outlet property="delegate" destination="Z5Y-dX-mh1" id="ggL-P0-h0n"/>
                                 </connections>
                             </collectionView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are no books matching this tag." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbK-ci-G45" userLabel="NoBooksLabel">
+                                <rect key="frame" x="15.5" y="305.5" width="289.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="HsP-cW-EBT" firstAttribute="trailing" secondItem="psC-ej-OZS" secondAttribute="trailing" id="6TM-Qm-mN2"/>
-                            <constraint firstItem="NyS-Mf-fP6" firstAttribute="leading" secondItem="HsP-cW-EBT" secondAttribute="leading" id="6Vl-LK-smR"/>
-                            <constraint firstItem="psC-ej-OZS" firstAttribute="leading" secondItem="HsP-cW-EBT" secondAttribute="leading" id="DUX-IH-bOt"/>
-                            <constraint firstItem="HsP-cW-EBT" firstAttribute="bottom" secondItem="NyS-Mf-fP6" secondAttribute="bottom" id="Yl6-Fx-bei"/>
-                            <constraint firstItem="SUQ-fc-sy7" firstAttribute="centerY" secondItem="HsP-cW-EBT" secondAttribute="centerY" id="fy7-mS-ffh"/>
-                            <constraint firstItem="SUQ-fc-sy7" firstAttribute="centerX" secondItem="HsP-cW-EBT" secondAttribute="centerX" id="iqi-76-9WS"/>
-                            <constraint firstItem="HsP-cW-EBT" firstAttribute="trailing" secondItem="NyS-Mf-fP6" secondAttribute="trailing" id="ix1-cB-D5G"/>
-                            <constraint firstItem="NyS-Mf-fP6" firstAttribute="top" secondItem="psC-ej-OZS" secondAttribute="bottom" constant="32" id="kE3-jX-O0c"/>
-                            <constraint firstItem="psC-ej-OZS" firstAttribute="top" secondItem="HsP-cW-EBT" secondAttribute="top" constant="32" id="yo9-Iv-AO8"/>
+                            <constraint firstItem="fbK-ci-G45" firstAttribute="centerX" secondItem="HsP-cW-EBT" secondAttribute="centerX" id="FTf-6V-vu4"/>
+                            <constraint firstItem="psC-ej-OZS" firstAttribute="top" secondItem="HsP-cW-EBT" secondAttribute="top" constant="32" id="Jaz-S2-Xix"/>
+                            <constraint firstItem="NyS-Mf-fP6" firstAttribute="top" secondItem="psC-ej-OZS" secondAttribute="bottom" constant="32" id="K3I-k3-lQv"/>
+                            <constraint firstItem="HsP-cW-EBT" firstAttribute="trailing" secondItem="NyS-Mf-fP6" secondAttribute="trailing" id="PRH-W1-1Ct"/>
+                            <constraint firstItem="psC-ej-OZS" firstAttribute="leading" secondItem="HsP-cW-EBT" secondAttribute="leading" id="SsE-Un-688"/>
+                            <constraint firstItem="NyS-Mf-fP6" firstAttribute="leading" secondItem="HsP-cW-EBT" secondAttribute="leading" id="hzV-47-LcU"/>
+                            <constraint firstItem="HsP-cW-EBT" firstAttribute="bottom" secondItem="NyS-Mf-fP6" secondAttribute="bottom" id="oAX-6j-wnT"/>
+                            <constraint firstItem="HsP-cW-EBT" firstAttribute="trailing" secondItem="psC-ej-OZS" secondAttribute="trailing" id="oaa-J1-dyb"/>
+                            <constraint firstItem="fbK-ci-G45" firstAttribute="centerY" secondItem="HsP-cW-EBT" secondAttribute="centerY" id="yCo-a4-XwD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HsP-cW-EBT"/>
                     </view>
@@ -178,7 +177,7 @@
                     <connections>
                         <outlet property="bookCollectionView" destination="NyS-Mf-fP6" id="zEa-ra-Qbc"/>
                         <outlet property="bookCollectionViewFlowLayout" destination="MgW-0T-E1c" id="rnX-Ea-Kaf"/>
-                        <outlet property="noBooksLabel" destination="SUQ-fc-sy7" id="QGv-6e-dzq"/>
+                        <outlet property="noBooksLabel" destination="fbK-ci-G45" id="CgW-De-mOd"/>
                         <outlet property="rerollCollageButton" destination="xzJ-I9-ENz" id="4WV-5g-x4c"/>
                         <outlet property="tagText" destination="psC-ej-OZS" id="OcN-X7-x8I"/>
                         <segue destination="SUX-de-aGb" kind="show" identifier="BookSegue" id="OXK-TQ-UdU"/>

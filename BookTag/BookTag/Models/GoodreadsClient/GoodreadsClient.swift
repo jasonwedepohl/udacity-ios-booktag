@@ -29,6 +29,19 @@ class GoodreadsClient {
 	//Goodreads does not explain this behaviour in their API documentation. I suspect Goodreads is temporarily caching the results for high page counts.
 	let goodreadsMaxPage:Int32 = 100
 	
+	//books without a cover image are assigned the url of a generic Goodreads logo image
+	let goodreadsNoCoverImageUrl = "https://s.gr-assets.com/assets/nophoto/"
+	
+	//number of books we want to grab per collage
+	let collageBookCount = 12
+	
+	//Goodreads states that calls must be no less than 1 second apart
+	let goodreadsSleepSeconds = 1
+	
+	//max number of times we want to call the search function to get books for a collage - multiple calls are needed since the Goodreads page size is 10
+	//and often there are books without cover images, which we want to exclude from the results
+	let maxSearchRetryCount = 4
+	
 	struct ParameterKeys {
 		static let apiKey = "key"
 		static let page = "page"
@@ -80,21 +93,27 @@ class GoodreadsClient {
 			//tag was loaded in main context, so this change will be persisted to Core Data when app closes (in AppDelegate)
 			if let totalBooks = self.parseTotalBooksFromSearchResponse(data!) {
 				tag.totalBooks = totalBooks
-				self.getRandomPageOfBooksForTag(tag, completion)
+				
+				//if there aren't any books for the tag we know we don't need to go further
+				if tag.totalBooks == 0 {
+					completion(true, nil)
+				} else {
+					self.getRandomPageOfBooksForTag(tag, 0, completion)
+				}
 			} else {
 				completion(false, DisplayError.parse)
 			}
-			
-			self.getRandomPageOfBooksForTag(tag, completion)
 		}
 		
 		task.resume()
 	}
 	
-	func getRandomPageOfBooksForTag(_ tag: Tag, _ completion: @escaping (_ successful: Bool, _ displayError: String?) -> ()) {
+	func getRandomPageOfBooksForTag(_ tag: Tag, _ callCount: Int, _ completion: @escaping (_ successful: Bool, _ displayError: String?) -> ()) {
 		
-		//TODO: call this method more than once until we have at least 9 books with covers (i.e. books that do not use
-		//the Goodreads placeholder images located at https://s.gr-assets.com/assets/nophoto/
+		//reset collage if we are starting a new chain of calls
+		if callCount == 0 {
+			tag.books = [Book]()
+		}
 		
 		let maxPage = min(goodreadsMaxPage, max(1, tag.totalBooks / pageSize - 1))
 		let randomPage = Int(arc4random_uniform(UInt32(maxPage))) + 1
@@ -119,14 +138,35 @@ class GoodreadsClient {
 				return
 			}
 			
+			if books.count > 0 {
+				let numberOfBooksThatCanBeAdded = self.collageBookCount - tag.books.count
+				let numberOfBooksThatWillBeAdded = min(numberOfBooksThatCanBeAdded, books.count)
+				let indexOfLastBookToAdd = min(numberOfBooksThatWillBeAdded, books.count - 1)
+				
+				tag.books.append(contentsOf: books[0..<indexOfLastBookToAdd])
+			}
+			
+			//check if we have enough books for a collage - if not, check if we haven't hit our limit on search retries
+			if tag.books.count < self.collageBookCount && callCount < self.maxSearchRetryCount {
+				
+				//following Goodreads API rules, wait 1 second before making the next call
+				DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(self.goodreadsSleepSeconds)), execute: {
+				
+					//call recursively with an incremented call count
+					self.getRandomPageOfBooksForTag(tag, callCount + 1, completion)
+				})
+				
+				//skip saving to Core Data and downloading book images until we have enough books
+				return
+			}
+			
 			//TODO: Save books to Core Data
-			tag.books = books
 			
 			//handle completion now so UI shows activity indicators for each book to be downloaded
 			completion(true, nil)
 			
 			//continue to download books in background, FRC will handle updates
-			for book in books {
+			for book in tag.books {
 				self.downloadBookImage(fromUrl: book.imageUrl) { (successful, imageData, displayError) in
 					if successful {
 						//set book image data to image data
@@ -235,6 +275,16 @@ class GoodreadsClient {
 			
 			let bestBook = work[XMLTag.bestBook]
 			
+			guard let imageURL = bestBook[XMLTag.imageUrl].element?.text else {
+				//Could not find image_url tag
+				return nil
+			}
+			
+			//if the book has no cover image, we don't want to include it in the results
+			if imageURL.starts(with: goodreadsNoCoverImageUrl) {
+				continue
+			}
+			
 			guard let bookID = bestBook[XMLTag.id].element?.text else {
 				//Could not find ID tag
 				return nil
@@ -247,11 +297,6 @@ class GoodreadsClient {
 			
 			guard let author = bestBook[XMLTag.author][XMLTag.name].element?.text else {
 				//Could not find author tag
-				return nil
-			}
-			
-			guard let imageURL = bestBook[XMLTag.imageUrl].element?.text else {
-				//Could not find image_url tag
 				return nil
 			}
 			
