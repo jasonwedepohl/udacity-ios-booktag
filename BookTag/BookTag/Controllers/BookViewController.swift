@@ -18,12 +18,12 @@ class BookViewController: UIViewController {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var authorLabel: UILabel!
 	@IBOutlet var coverImage: UIImageView!
-	@IBOutlet var ratingLabel: UILabel! //TODO: Use a UIImage with some image resources to show star rating
 	@IBOutlet var descriptionLabel: UILabel!
+	@IBOutlet var ratingLabel: UILabel!
+	@IBOutlet var pagesLabel: UILabel!
+	@IBOutlet var publishedYearLabel:UILabel!
 	@IBOutlet var isbnLabel: UILabel!
 	@IBOutlet var isbn13Label: UILabel!
-	@IBOutlet var publicationYearLabel: UILabel!
-	@IBOutlet var numPagesLabel: UILabel!
 	
 	//MARK: Actions
 	
@@ -39,14 +39,16 @@ class BookViewController: UIViewController {
 		titleLabel.text = book.title
 		authorLabel.text = book.author
 		coverImage.image = UIImage(data: book.imageData!)
-		ratingLabel.text = book.rating
 		
-		/* TODO: Load these if they aren't set yet
-		descriptionLabel.text = book.description
-		isbnLabel.text = book.isbn
-		isbn13Label.text = book.isbn13
-		publicationYearLabel.text = book.publicationYear
-		numPagesLabel.text = book.numberOfPages
-		*/
+		if book.description == nil {
+			//TODO: load book details
+		} else {
+			pagesLabel.text = "\(book.numberOfPages!) pages"
+			publishedYearLabel.text = "First published in \(book.publicationYear!)"
+			ratingLabel.text = "Rating: \(book.rating)/5"
+			isbnLabel.text = "ISBN: \(book.isbn!)"
+			isbn13Label.text = "ISBN13: \(book.isbn13!)"
+			descriptionLabel.text = book.description
+		}
 	}
 }
