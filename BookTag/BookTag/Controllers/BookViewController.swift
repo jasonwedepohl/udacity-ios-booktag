@@ -9,6 +9,10 @@ import UIKit
 
 class BookViewController: UIViewController {
 	
+	//MARK: Constants
+	
+	let horizontalPadding:CGFloat = 16
+	
 	//MARK: Properties
 	
 	var book: Book!
@@ -50,5 +54,13 @@ class BookViewController: UIViewController {
 			isbn13Label.text = "ISBN13: \(book.isbn13!)"
 			descriptionLabel.text = book.description
 		}
+		
+		/*
+			Labels that are likely to be longer than the width of the view should have their preferred width limited to the view width
+			so that their word wrapping will work properly.
+		*/
+		titleLabel.preferredMaxLayoutWidth = view.frame.width - horizontalPadding
+		authorLabel.preferredMaxLayoutWidth = view.frame.width - horizontalPadding
+		descriptionLabel.preferredMaxLayoutWidth = view.frame.width - horizontalPadding
 	}
 }
