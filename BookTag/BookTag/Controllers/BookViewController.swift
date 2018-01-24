@@ -15,6 +15,7 @@ class BookViewController: UIViewController {
 	
 	//MARK: Properties
 	
+	let waitingSpinner = WaitingSpinner()
 	var book: Book!
 	
 	//MARK: Outlets
@@ -44,23 +45,45 @@ class BookViewController: UIViewController {
 		authorLabel.text = book.author
 		coverImage.image = UIImage(data: book.imageData!)
 		
+		//download book details if we don't have them yet
 		if book.description == nil {
-			//TODO: load book details
+			
+			waitingSpinner.show(view)
+
+			GoodreadsClient.instance.getBookDetails(forBook: book, {successful, displayError in
+				DispatchQueue.main.async {
+					self.waitingSpinner.hide()
+					
+					if successful {
+						self.setContent()
+					} else {
+						ErrorAlert.show(self, displayError)
+					}
+				}
+			})
+			
 		} else {
-			pagesLabel.text = "\(book.numberOfPages!) pages"
-			publishedYearLabel.text = "First published in \(book.publicationYear!)"
-			ratingLabel.text = "Rating: \(book.rating)/5"
-			isbnLabel.text = "ISBN: \(book.isbn!)"
-			isbn13Label.text = "ISBN13: \(book.isbn13!)"
-			descriptionLabel.text = book.description
+			setContent()
 		}
 		
 		/*
 			Labels that are likely to be longer than the width of the view should have their preferred width limited to the view width
 			so that their word wrapping will work properly.
+			As a consequence, label widths never exceed the width of the device in portrait mode, so they do not take up the whole width
+			of the device in landscape mode. Labels are still wide enough for easy reading.
 		*/
-		titleLabel.preferredMaxLayoutWidth = view.frame.width - horizontalPadding
-		authorLabel.preferredMaxLayoutWidth = view.frame.width - horizontalPadding
-		descriptionLabel.preferredMaxLayoutWidth = view.frame.width - horizontalPadding
+		let maxLabelWidth = view.frame.width - horizontalPadding
+		titleLabel.preferredMaxLayoutWidth = maxLabelWidth
+		authorLabel.preferredMaxLayoutWidth = maxLabelWidth
+		descriptionLabel.preferredMaxLayoutWidth = maxLabelWidth
+	}
+	
+	private func setContent() {
+		pagesLabel.text = "\(book.numberOfPages!) pages"
+		publishedYearLabel.text = "First published in \(book.publicationYear!)"
+		ratingLabel.text = "Rating: \(book.rating)/5"
+		isbnLabel.text = "ISBN: \(book.isbn!)"
+		isbn13Label.text = "ISBN13: \(book.isbn13!)"
+		descriptionLabel.text = book.description
 	}
 }

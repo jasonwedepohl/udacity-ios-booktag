@@ -215,7 +215,10 @@ class GoodreadsClient {
 				return
 			}
 			
-			//TODO: Try parse GoodreadsResponse - if that fails, try parse <error> - if that succeeds, display "unexpected" error message.
+			if !self.parseDetails(forBook: book, data!) {
+				completion(false, DisplayError.parse)
+				return
+			}
 			
 			//TODO: Save book details to Core Data
 			
