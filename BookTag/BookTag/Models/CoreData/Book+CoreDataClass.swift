@@ -31,7 +31,11 @@ public class Book: NSManagedObject {
 			"&quot;" : "\"",
 			"&lt;" : "<",
 			"&gt;" : ">",
-			"&nbsp;" : " "
+			"&nbsp;" : " ",
+			"<a>" : "",
+			"</a>" : "",
+			"<b>" : "",
+			"</b>" : ""
 	]
 	
 	convenience init(_ id: String,
@@ -44,11 +48,11 @@ public class Book: NSManagedObject {
 		
 		if let entityDescription = NSEntityDescription.entity(forEntityName: Book.entityName, in: context) {
 			self.init(entity: entityDescription, insertInto: context)
-			self.id = id
-			self.title = title
-			self.author = author
-			self.rating = rating
-			self.imageUrl = imageUrl
+			self.id = id.trimmingCharacters(in: .whitespacesAndNewlines)
+			self.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
+			self.author = author.trimmingCharacters(in: .whitespacesAndNewlines)
+			self.rating = rating.trimmingCharacters(in: .whitespacesAndNewlines)
+			self.imageUrl = imageUrl.trimmingCharacters(in: .whitespacesAndNewlines)
 			self.tag = tag
 		} else {
 			fatalError("Unable to initialise object.")
@@ -61,11 +65,11 @@ public class Book: NSManagedObject {
 					_ publishedYear: String,
 					_ numberOfPages: String) {
 		
-		self.isbn = isbn
-		self.isbn13 = isbn13
-		self.bookDescription = description
-		self.publishedYear = publishedYear
-		self.numberOfPages = numberOfPages
+		self.isbn = isbn.trimmingCharacters(in: .whitespacesAndNewlines)
+		self.isbn13 = isbn13.trimmingCharacters(in: .whitespacesAndNewlines)
+		self.bookDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
+		self.publishedYear = publishedYear.trimmingCharacters(in: .whitespacesAndNewlines)
+		self.numberOfPages = numberOfPages.trimmingCharacters(in: .whitespacesAndNewlines)
 		
 		//sanitise description, replacing HTML markup with desirable equivalents (see above comment)
 		for keyValue in undesirableDescriptionStringReplacements {

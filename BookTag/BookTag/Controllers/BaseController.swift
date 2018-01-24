@@ -23,6 +23,7 @@ class BaseController: UIViewController {
 	//MARK: UIViewController overrides
 	
 	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		setNightModeColors()
 	}
 	
@@ -59,6 +60,7 @@ class BaseController: UIViewController {
 		navigationController?.navigationBar.barTintColor = iosDefaultNavBarColor
 		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : iosDefaultTint]
 		UIApplication.shared.statusBarStyle = .default
+		navigationController?.navigationBar.tintColor = iosDefaultTint
 	}
 	
 	func useNightColors() {
@@ -66,5 +68,6 @@ class BaseController: UIViewController {
 		navigationController?.navigationBar.barTintColor = nightModeNavbarColor
 		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
 		UIApplication.shared.statusBarStyle = .lightContent
+		navigationController?.navigationBar.tintColor = UIColor.white
 	}
 }

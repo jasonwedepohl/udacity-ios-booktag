@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookViewController: UIViewController {
+class BookViewController: BaseController {
 	
 	//MARK: Constants
 	
@@ -36,6 +36,10 @@ class BookViewController: UIViewController {
 		dismiss(animated: true, completion: nil)
 	}
 	
+	@IBAction func setNightMode() {
+		super.toggleNightMode()
+	}
+	
 	//MARK: UIViewController overrides
 	
 	override func viewDidLoad() {
@@ -55,7 +59,7 @@ class BookViewController: UIViewController {
 					self.waitingSpinner.hide()
 					
 					if successful {
-						self.setContent()
+						self.setDetailLabels()
 					} else {
 						ErrorAlert.show(self, displayError)
 					}
@@ -63,7 +67,7 @@ class BookViewController: UIViewController {
 			})
 			
 		} else {
-			setContent()
+			setDetailLabels()
 		}
 		
 		/*
@@ -78,12 +82,70 @@ class BookViewController: UIViewController {
 		descriptionLabel.preferredMaxLayoutWidth = maxLabelWidth
 	}
 	
-	private func setContent() {
-		pagesLabel.text = "\(book.numberOfPages!) pages"
-		publishedYearLabel.text = "First published in \(book.publishedYear!)"
-		ratingLabel.text = "Rating: \(book.rating!)/5"
-		isbnLabel.text = "ISBN: \(book.isbn!)"
-		isbn13Label.text = "ISBN13: \(book.isbn13!)"
-		descriptionLabel.text = book.bookDescription
+	private func setDetailLabels() {
+		//sometimes fields are not provided, so hide their respective labels to avoid empty space
+		if book.numberOfPages!.isEmpty {
+			pagesLabel.isHidden = true
+		} else {
+			pagesLabel.text = "\(book.numberOfPages!) pages"
+		}
+		
+		if book.publishedYear!.isEmpty {
+			publishedYearLabel.isHidden = true
+		} else {
+			publishedYearLabel.text = "First published in \(book.publishedYear!)"
+		}
+		
+		if book.rating!.isEmpty {
+			ratingLabel.isHidden = true
+		} else {
+			ratingLabel.text = "Rating: \(book.rating!)/5"
+		}
+		
+		if book.isbn!.isEmpty {
+			isbnLabel.isHidden = true
+		} else {
+			isbnLabel.text = "ISBN: \(book.isbn!)"
+		}
+		
+		if book.isbn13!.isEmpty {
+			isbn13Label.isHidden = true
+		} else {
+			isbn13Label.text = "ISBN13: \(book.isbn13!)"
+		}
+		
+		if book.bookDescription!.isEmpty {
+			descriptionLabel.isHidden = true
+		} else {
+			descriptionLabel.text = book.bookDescription
+		}
+	}
+	
+	//MARK: BaseController overrides for night mode
+	
+	override func useDayColors() {
+		super.useDayColors()
+		coverImage.backgroundColor = UIColor.white
+		titleLabel.textColor = UIColor.black
+		authorLabel.textColor = UIColor.lightGray
+		ratingLabel.textColor = UIColor.black
+		descriptionLabel.textColor = UIColor.black
+		pagesLabel.textColor = UIColor.black
+		publishedYearLabel.textColor = UIColor.lightGray
+		isbnLabel.textColor = UIColor.lightGray
+		isbn13Label.textColor = UIColor.lightGray
+	}
+	
+	override func useNightColors() {
+		super.useNightColors()
+		coverImage.backgroundColor = nightModeBackgroundColor
+		titleLabel.textColor = UIColor.white
+		authorLabel.textColor = UIColor.lightGray
+		ratingLabel.textColor = UIColor.white
+		descriptionLabel.textColor = UIColor.white
+		pagesLabel.textColor = UIColor.white
+		publishedYearLabel.textColor = UIColor.lightGray
+		isbnLabel.textColor = UIColor.lightGray
+		isbn13Label.textColor = UIColor.lightGray
 	}
 }

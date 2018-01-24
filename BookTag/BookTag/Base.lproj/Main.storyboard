@@ -79,10 +79,8 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="addButton" destination="vTw-zP-V7t" id="GGu-sC-iZX"/>
                         <outlet property="noTagsLabel" destination="7nd-58-5CH" id="fnW-Tr-A5K"/>
                         <outlet property="tagTableView" destination="Quu-3b-Ste" id="yMN-FD-W7T"/>
-                        <outlet property="toggleNightModeButton" destination="m3e-EE-XBu" id="u32-Ad-Opg"/>
                         <segue destination="Z5Y-dX-mh1" kind="show" identifier="CollageSegue" id="7kA-OA-Y1A"/>
                     </connections>
                 </viewController>
@@ -98,12 +96,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psC-ej-OZS" userLabel="TagLabel">
-                                <rect key="frame" x="0.0" y="96" width="320" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mSx-Uz-ex9" userLabel="TagStackView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="88"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vi-vU-a9g" userLabel="PlaceholderView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
+                                        <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="o26-vc-qY0" userLabel="height = 24"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psC-ej-OZS" userLabel="TagLabel">
+                                        <rect key="frame" x="0.0" y="32" width="320" height="24"/>
+                                        <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nUN-mB-kFU" userLabel="PlaceholderView">
+                                        <rect key="frame" x="0.0" y="56" width="320" height="32"/>
+                                        <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="cBQ-aD-7aS" userLabel="height = 24"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NyS-Mf-fP6" userLabel="CollageView">
                                 <rect key="frame" x="0.0" y="152" width="320" height="416"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MgW-0T-E1c">
@@ -148,32 +167,35 @@
                                 </connections>
                             </collectionView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are no books matching this tag." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbK-ci-G45" userLabel="NoBooksLabel">
-                                <rect key="frame" x="15.5" y="305.5" width="289.5" height="21"/>
+                                <rect key="frame" x="15.5" y="306" width="289.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fbK-ci-G45" firstAttribute="centerX" secondItem="HsP-cW-EBT" secondAttribute="centerX" id="FTf-6V-vu4"/>
-                            <constraint firstItem="psC-ej-OZS" firstAttribute="top" secondItem="HsP-cW-EBT" secondAttribute="top" constant="32" id="Jaz-S2-Xix"/>
-                            <constraint firstItem="NyS-Mf-fP6" firstAttribute="top" secondItem="psC-ej-OZS" secondAttribute="bottom" constant="32" id="K3I-k3-lQv"/>
+                            <constraint firstItem="NyS-Mf-fP6" firstAttribute="top" secondItem="mSx-Uz-ex9" secondAttribute="bottom" id="NdU-dq-gtK"/>
+                            <constraint firstItem="mSx-Uz-ex9" firstAttribute="top" secondItem="HsP-cW-EBT" secondAttribute="top" id="OvZ-w5-H0j"/>
                             <constraint firstItem="HsP-cW-EBT" firstAttribute="trailing" secondItem="NyS-Mf-fP6" secondAttribute="trailing" id="PRH-W1-1Ct"/>
-                            <constraint firstItem="psC-ej-OZS" firstAttribute="leading" secondItem="HsP-cW-EBT" secondAttribute="leading" id="SsE-Un-688"/>
+                            <constraint firstItem="mSx-Uz-ex9" firstAttribute="leading" secondItem="HsP-cW-EBT" secondAttribute="leading" id="RMb-fg-9s0"/>
+                            <constraint firstItem="HsP-cW-EBT" firstAttribute="trailing" secondItem="mSx-Uz-ex9" secondAttribute="trailing" id="WBu-od-QGG"/>
                             <constraint firstItem="NyS-Mf-fP6" firstAttribute="leading" secondItem="HsP-cW-EBT" secondAttribute="leading" id="hzV-47-LcU"/>
                             <constraint firstItem="HsP-cW-EBT" firstAttribute="bottom" secondItem="NyS-Mf-fP6" secondAttribute="bottom" id="oAX-6j-wnT"/>
-                            <constraint firstItem="HsP-cW-EBT" firstAttribute="trailing" secondItem="psC-ej-OZS" secondAttribute="trailing" id="oaa-J1-dyb"/>
                             <constraint firstItem="fbK-ci-G45" firstAttribute="centerY" secondItem="HsP-cW-EBT" secondAttribute="centerY" id="yCo-a4-XwD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HsP-cW-EBT"/>
                     </view>
                     <navigationItem key="navigationItem" id="XYC-rl-7Ud">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="action" id="TRa-yB-yOk" userLabel="ShareButton"/>
                             <barButtonItem systemItem="refresh" id="xzJ-I9-ENz" userLabel="RerollButton">
                                 <connections>
                                     <action selector="rerollCollage" destination="Z5Y-dX-mh1" id="lKf-JE-HVI"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" id="TRa-yB-yOk" userLabel="ToggleNightMode">
+                                <connections>
+                                    <action selector="setNightMode" destination="Z5Y-dX-mh1" id="jUD-xQ-Nl4"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -183,7 +205,8 @@
                         <outlet property="bookCollectionViewFlowLayout" destination="MgW-0T-E1c" id="rnX-Ea-Kaf"/>
                         <outlet property="noBooksLabel" destination="fbK-ci-G45" id="CgW-De-mOd"/>
                         <outlet property="rerollCollageButton" destination="xzJ-I9-ENz" id="4WV-5g-x4c"/>
-                        <outlet property="shareButton" destination="TRa-yB-yOk" id="NJL-FZ-8eA"/>
+                        <outlet property="tagPlaceholderBottom" destination="nUN-mB-kFU" id="R2R-eW-25o"/>
+                        <outlet property="tagPlaceholderTop" destination="1vi-vU-a9g" id="RR5-3B-Q9J"/>
                         <outlet property="tagText" destination="psC-ej-OZS" id="OcN-X7-x8I"/>
                         <segue destination="lCQ-8y-7dS" kind="show" identifier="BookSegue" id="OXK-TQ-UdU"/>
                     </connections>
@@ -201,10 +224,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8S-Ea-EhR" userLabel="ScrollView">
-                                <rect key="frame" x="8" y="72" width="304" height="488"/>
+                                <rect key="frame" x="8" y="64" width="304" height="504"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8TW-rE-ThG" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="341.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8TW-rE-ThG" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="8" width="0.0" height="357.5"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="BV1-Ow-vcw" userLabel="CoverImage">
                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="160"/>
@@ -214,7 +237,7 @@
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="07i-44-3b9" userLabel="LabelsStackView">
-                                                <rect key="frame" x="0.0" y="160" width="0.0" height="181.5"/>
+                                                <rect key="frame" x="0.0" y="176" width="0.0" height="181.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Very Hungry and Thirsty Caterpillar" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="QVd-ma-yZF" userLabel="TitleLabel">
                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="24"/>
@@ -294,8 +317,8 @@
                                 <constraints>
                                     <constraint firstItem="8TW-rE-ThG" firstAttribute="leading" secondItem="Q8S-Ea-EhR" secondAttribute="leading" id="7kQ-yi-gUD"/>
                                     <constraint firstItem="8TW-rE-ThG" firstAttribute="trailing" secondItem="Q8S-Ea-EhR" secondAttribute="trailing" id="CYS-K6-Ljd"/>
-                                    <constraint firstItem="8TW-rE-ThG" firstAttribute="top" secondItem="Q8S-Ea-EhR" secondAttribute="top" id="r9i-ZI-uiE"/>
-                                    <constraint firstItem="8TW-rE-ThG" firstAttribute="bottom" secondItem="Q8S-Ea-EhR" secondAttribute="bottom" id="s68-4h-N8X"/>
+                                    <constraint firstItem="8TW-rE-ThG" firstAttribute="top" secondItem="Q8S-Ea-EhR" secondAttribute="top" constant="8" id="r9i-ZI-uiE"/>
+                                    <constraint firstItem="8TW-rE-ThG" firstAttribute="bottom" secondItem="Q8S-Ea-EhR" secondAttribute="bottom" constant="-8" id="s68-4h-N8X"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="SUX-de-aGb" id="5gN-DG-Zj0"/>
@@ -304,19 +327,26 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Q8S-Ea-EhR" firstAttribute="bottom" secondItem="phQ-Xf-Qxw" secondAttribute="bottom" constant="-8" id="1NN-Hj-9K4"/>
+                            <constraint firstItem="Q8S-Ea-EhR" firstAttribute="bottom" secondItem="phQ-Xf-Qxw" secondAttribute="bottom" id="1NN-Hj-9K4"/>
                             <constraint firstItem="Q8S-Ea-EhR" firstAttribute="trailing" secondItem="phQ-Xf-Qxw" secondAttribute="trailing" constant="-8" id="LbM-YE-wJz"/>
                             <constraint firstItem="Q8S-Ea-EhR" firstAttribute="leading" secondItem="phQ-Xf-Qxw" secondAttribute="leading" constant="8" id="Uhx-mO-oyf"/>
-                            <constraint firstItem="Q8S-Ea-EhR" firstAttribute="top" secondItem="phQ-Xf-Qxw" secondAttribute="top" constant="8" id="nBA-Aa-oP6"/>
+                            <constraint firstItem="Q8S-Ea-EhR" firstAttribute="top" secondItem="phQ-Xf-Qxw" secondAttribute="top" id="nBA-Aa-oP6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="phQ-Xf-Qxw"/>
                     </view>
                     <navigationItem key="navigationItem" id="UTR-3o-OvZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="ZB3-wN-oks">
-                            <connections>
-                                <action selector="close" destination="SUX-de-aGb" id="DVI-MZ-TCL"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="stop" id="ZB3-wN-oks">
+                                <connections>
+                                    <action selector="close" destination="SUX-de-aGb" id="DVI-MZ-TCL"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" id="sw5-4d-xb3" userLabel="ToggleNightMode">
+                                <connections>
+                                    <action selector="setNightMode" destination="SUX-de-aGb" id="mvT-bG-fC3"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="authorLabel" destination="vSd-6d-GI1" id="H8p-Ha-WCC"/>

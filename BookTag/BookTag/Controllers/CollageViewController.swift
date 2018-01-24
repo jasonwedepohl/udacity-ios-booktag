@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class CollageViewController: UIViewController {
+class CollageViewController: BaseController {
 	
 	//MARK: Constants
 	
@@ -16,6 +16,7 @@ class CollageViewController: UIViewController {
 	let cellIdentifier = "BookCell"
 	let cellsPerRow:CGFloat = 3;
 	let cellSpacing:CGFloat = 2;
+	let defaultTagBackgroundColor = UIColor(red: 0.0, green: 180.0/255.0, blue: 230.0/255.0, alpha: 1.0)
 	
 	//MARK: Properties
 	
@@ -32,10 +33,9 @@ class CollageViewController: UIViewController {
 	@IBOutlet var bookCollectionView: UICollectionView!
 	@IBOutlet var bookCollectionViewFlowLayout: UICollectionViewFlowLayout!
 	@IBOutlet var rerollCollageButton: UIBarButtonItem!
-	@IBOutlet var shareButton: UIBarButtonItem!
 	@IBOutlet var noBooksLabel: UILabel!
-	
-	//TODO: Hook up Share button
+	@IBOutlet var tagPlaceholderTop: UIView!
+	@IBOutlet var tagPlaceholderBottom: UIView!
 	
 	//MARK: Actions
 	
@@ -43,7 +43,6 @@ class CollageViewController: UIViewController {
 		waitingSpinner.show(view)
 		noBooksLabel.isHidden = true
 		rerollCollageButton.isEnabled = false
-		shareButton.isEnabled = false
 		
 		//delete books for the current tag from the main context
 		if let books = fetchedResultsController.fetchedObjects as? [Book] {
@@ -86,6 +85,10 @@ class CollageViewController: UIViewController {
 		dismiss(animated: true, completion: nil)
 	}
 	
+	@IBAction func setNightMode() {
+		super.toggleNightMode()
+	}
+	
 	//MARK: UIViewController overrides
 	
 	override func viewDidLoad() {
@@ -109,9 +112,6 @@ class CollageViewController: UIViewController {
 			rerollCollage()
 		} else if (tag.totalBooks == 0) {
 			noBooksLabel.isHidden = false
-			
-			//TODO: Enable share button when all images for collage have been downloaded
-			shareButton.isEnabled = false
 			rerollCollageButton.isEnabled = false
 		}
 	}
@@ -166,6 +166,26 @@ class CollageViewController: UIViewController {
 		bookCollectionViewFlowLayout.minimumInteritemSpacing = cellSpacing
 		bookCollectionViewFlowLayout.minimumLineSpacing = cellSpacing
 		bookCollectionViewFlowLayout.itemSize = CGSize(width: dimension, height: dimension)
+	}
+	
+	//MARK: BaseController overrides for night mode
+	
+	override func useDayColors() {
+		super.useDayColors()
+		bookCollectionView.backgroundColor = UIColor.white
+		tagPlaceholderTop.backgroundColor = defaultTagBackgroundColor
+		tagPlaceholderBottom.backgroundColor = defaultTagBackgroundColor
+		tagText.backgroundColor = defaultTagBackgroundColor
+		tagText.textColor = UIColor.white
+	}
+	
+	override func useNightColors() {
+		super.useNightColors()
+		bookCollectionView.backgroundColor = nightModeBackgroundColor
+		tagPlaceholderTop.backgroundColor = nightModeBackgroundColor
+		tagPlaceholderBottom.backgroundColor = nightModeBackgroundColor
+		tagText.backgroundColor = nightModeBackgroundColor
+		tagText.textColor = UIColor.cyan
 	}
 }
 

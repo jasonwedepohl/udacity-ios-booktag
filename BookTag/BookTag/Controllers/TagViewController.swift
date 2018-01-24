@@ -25,8 +25,6 @@ class TagViewController: BaseController {
 	
 	@IBOutlet var tagTableView: UITableView!
 	@IBOutlet var noTagsLabel: UILabel!
-	@IBOutlet var addButton: UIBarButtonItem!
-	@IBOutlet var toggleNightModeButton: UIBarButtonItem!
 	
 	//MARK: Actions
 	
@@ -115,9 +113,6 @@ class TagViewController: BaseController {
 		tableCellTextColor = UIColor.black
 		tableCellBackgroundColor = UIColor.white
 		setTableCellColors()
-		
-		addButton.tintColor = iosDefaultTint
-		toggleNightModeButton.tintColor = iosDefaultTint
 	}
 	
 	override func useNightColors() {
@@ -128,9 +123,6 @@ class TagViewController: BaseController {
 		tableCellTextColor = UIColor.white
 		tableCellBackgroundColor =  nightModeBackgroundColor
 		setTableCellColors()
-		
-		addButton.tintColor = UIColor.white
-		toggleNightModeButton.tintColor = UIColor.white
 	}
 	
 	private func setTableCellColors() {
