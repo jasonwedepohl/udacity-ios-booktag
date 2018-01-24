@@ -2,11 +2,11 @@
 
 The Booktag app is an iOS app that fulfils all the requirements of the final project of Udacity's iOS nanodegree. The final project is meant to demonstrate competence in user interface design, networking with a web API, persistence using Core Data and UserDefaults. The project is self-decided, and every Nanodegree student must come up with their own app idea and bear it to fruition. The specification for the app is located [here](https://docs.google.com/document/d/1CWsC1jszFEYX5EM3CE9sX88FuIZCim4fMNml-lUPKlo/pub?embedded=true) and the marking rubric is located [here](https://review.udacity.com/#!/rubrics/23/view).
 
-# Building and running the app
+## Building and running the app
 
 The app was built using Swift 4 and XCode 9. It requires CocoaPods to build, as it uses a third-party XML parsing library.
 
-# User Experience
+## User Experience
 
 This app is best viewed on the iPhone screen sizes, although since it uses autolayout it will adjust to the iPad screen sizes.
 
@@ -28,7 +28,7 @@ On every screen the nav bar contains a button to toggle night mode.
 
 The app has a splash screen and an icon, both of which I created in MS Paint.
 
-# Technical details
+## Technical details
 
 This app is built using XCode 9 and Swift 4. It uses the Goodreads API with my developer API key. The Goodreads API returns data as XML and Apple hasn't yet provided a simple way to parse XML in Swift, so I am using [drmohundro's SWXMLHash library](https://github.com/drmohundro/SWXMLHash) to parse data. Consequently, CocoaPods is required to build the project.
 
@@ -44,7 +44,7 @@ In terms of sophistication, the app does the following:
 - Has three view controllers, not counting navigation controllers
 - Uses alert views
 
-# Challenges
+## Challenges
 
 During the course of this project some problems took much longer to solve than I had anticipated. 
 
@@ -61,7 +61,7 @@ The limitations of the Goodreads API required some code acrobatics to negotiate.
 
 Despite these challenges, I am very happy with how the app turned out.
 
-# Improvements
+## Improvements
 
 The app as it stands fulfils all the requirements as specified in the specification and in the marking rubric. However, I do have some ideas for extensions and enhancements.
 
@@ -71,7 +71,7 @@ The app as it stands fulfils all the requirements as specified in the specificat
 * Goodreads exposes a great many API methods and this app only uses two of them, so there are many possible ways to extend the use of the API.
 
 
-# Acknowledgements
+## Acknowledgements
 
 - drmohundros's [SWXMLHash XML parsing library](https://github.com/drmohundro/SWXMLHash) performed flawlessly and I am immensely grateful to him for his continuing maintenance on that project.
 - The Goodreads API, while having some frustrating limitations, was still consistently reliable during development and testing, for which I am grateful.
