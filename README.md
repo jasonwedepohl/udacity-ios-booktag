@@ -75,5 +75,5 @@ The app as it stands fulfils all the requirements as specified in the specificat
 
 - drmohundros's [SWXMLHash XML parsing library](https://github.com/drmohundro/SWXMLHash) performed flawlessly and I am immensely grateful to him for his continuing maintenance on that project.
 - The Goodreads API, while having some frustrating limitations, was still consistently reliable during development and testing, for which I am grateful.
-- The night mode nav bar I'm using I found on Iconscout [here](https://iconscout.com/icon/night-mode-2).
+- The night mode navigtion bar icon I'm using was found on Iconscout [here](https://iconscout.com/icon/night-mode-2).
 - StackOverflow was an invaluable resource as I ran into problems both great and small.
