@@ -71,7 +71,7 @@
                                     <action selector="openAddTagDialog" destination="BYZ-38-t0r" id="kQv-ce-fiW"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" id="m3e-EE-XBu" userLabel="ToggleNightMode">
+                            <barButtonItem image="NightModeIcon" id="m3e-EE-XBu" userLabel="ToggleNightMode">
                                 <connections>
                                     <action selector="setNightMode" destination="BYZ-38-t0r" id="Nr3-nf-87u"/>
                                 </connections>
@@ -193,7 +193,7 @@
                                     <action selector="rerollCollage" destination="Z5Y-dX-mh1" id="lKf-JE-HVI"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" id="TRa-yB-yOk" userLabel="ToggleNightMode">
+                            <barButtonItem image="NightModeIcon" id="TRa-yB-yOk" userLabel="ToggleNightMode">
                                 <connections>
                                     <action selector="setNightMode" destination="Z5Y-dX-mh1" id="jUD-xQ-Nl4"/>
                                 </connections>
@@ -341,7 +341,7 @@
                                     <action selector="close" destination="SUX-de-aGb" id="DVI-MZ-TCL"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" id="sw5-4d-xb3" userLabel="ToggleNightMode">
+                            <barButtonItem image="NightModeIcon" id="sw5-4d-xb3" userLabel="ToggleNightMode">
                                 <connections>
                                     <action selector="setNightMode" destination="SUX-de-aGb" id="mvT-bG-fC3"/>
                                 </connections>
@@ -401,4 +401,7 @@
             <point key="canvasLocation" x="2447" y="129"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NightModeIcon" width="22" height="22"/>
+    </resources>
 </document>

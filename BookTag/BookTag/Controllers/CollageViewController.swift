@@ -14,9 +14,8 @@ class CollageViewController: BaseController {
 	
 	let bookSegueIdentifier = "BookSegue"
 	let cellIdentifier = "BookCell"
-	let cellsPerRow:CGFloat = 3;
-	let cellSpacing:CGFloat = 2;
-	let defaultTagBackgroundColor = UIColor(red: 0.0, green: 180.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+	let cellsPerRow:CGFloat = 3
+	let cellSpacing:CGFloat = 2
 	
 	//MARK: Properties
 	
@@ -173,9 +172,9 @@ class CollageViewController: BaseController {
 	override func useDayColors() {
 		super.useDayColors()
 		bookCollectionView.backgroundColor = UIColor.white
-		tagPlaceholderTop.backgroundColor = defaultTagBackgroundColor
-		tagPlaceholderBottom.backgroundColor = defaultTagBackgroundColor
-		tagText.backgroundColor = defaultTagBackgroundColor
+		tagPlaceholderTop.backgroundColor = primaryThemeColor
+		tagPlaceholderBottom.backgroundColor = primaryThemeColor
+		tagText.backgroundColor = primaryThemeColor
 		tagText.textColor = UIColor.white
 	}
 	

@@ -15,7 +15,7 @@ class BaseController: UIViewController {
 	let valuesExistKey = "ValuesExist"
 	let nightModeKey = "NightMode"
 	
-	let iosDefaultTint = UIColor(red: 0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+	let primaryThemeColor = UIColor(red: 0.0, green: 180.0/255.0, blue: 230.0/255.0, alpha: 1.0)
 	let iosDefaultNavBarColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
 	let nightModeBackgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1.0)
 	let nightModeNavbarColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
@@ -58,9 +58,9 @@ class BaseController: UIViewController {
 	func useDayColors() {
 		view.backgroundColor = UIColor.white
 		navigationController?.navigationBar.barTintColor = iosDefaultNavBarColor
-		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : iosDefaultTint]
+		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : primaryThemeColor]
 		UIApplication.shared.statusBarStyle = .default
-		navigationController?.navigationBar.tintColor = iosDefaultTint
+		navigationController?.navigationBar.tintColor = primaryThemeColor
 	}
 	
 	func useNightColors() {

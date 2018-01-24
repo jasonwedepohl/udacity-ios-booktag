@@ -108,7 +108,7 @@ class TagViewController: BaseController {
 	override func useDayColors() {
 		super.useDayColors()
 		
-		tagTableView.separatorColor = iosDefaultTint
+		tagTableView.separatorColor = primaryThemeColor
 		tagTableView.backgroundColor = UIColor.white
 		tableCellTextColor = UIColor.black
 		tableCellBackgroundColor = UIColor.white
