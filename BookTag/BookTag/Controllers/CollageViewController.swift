@@ -21,6 +21,10 @@ class CollageViewController: UIViewController {
 	
 	let waitingSpinner = WaitingSpinner()
 	var tag: Tag!
+	var insertedIndexPaths: [IndexPath]!
+	var updatedIndexPaths: [IndexPath]!
+	var deletedIndexPaths: [IndexPath]!
+	var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
 	
 	//MARK: Outlets
 	
@@ -41,14 +45,20 @@ class CollageViewController: UIViewController {
 		rerollCollageButton.isEnabled = false
 		shareButton.isEnabled = false
 		
-		//TODO: delete books for the current tag from the main context
+		//delete books for the current tag from the main context
+		if let books = fetchedResultsController.fetchedObjects as? [Book] {
+			for book in books {
+				CoreDataStack.instance.context.delete(book)
+			}
+		}
+		CoreDataStack.instance.save()
 		
 		if tag.totalBooks == Tag.nilValueForInt {
 			//we don't know the number of pages of books for this tag yet
 			GoodreadsClient.instance.getBooksForTag(tag, completionForNewCollection(_:_:))
 		} else {
 			//we know the number of pages, so choose a random one
-			GoodreadsClient.instance.getRandomPageOfBooksForTag(tag, 0, completionForNewCollection(_:_:))
+			GoodreadsClient.instance.getRandomPageOfBooksForTag(tag, 0, [], completionForNewCollection(_:_:))
 		}
 	}
 	
@@ -62,7 +72,8 @@ class CollageViewController: UIViewController {
 					self.noBooksLabel.isHidden = false
 					self.rerollCollageButton.isEnabled = false
 				} else {
-					//TODO: fetch books for tag from main context
+					//fetch books for tag from main context
+					self.performFetch()
 					self.bookCollectionView.reloadData()
 				}
 			} else {
@@ -84,7 +95,15 @@ class CollageViewController: UIViewController {
 		
 		setFlowLayout()
 		
-		//TODO: initialise FRC with a fetch request for the given tag's books using the main context
+		//init FRC and tell it to get books for the given tag from main context
+		let fetchRequest = Book.getFetchRequest(forTag: tag)
+		
+		fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+															  managedObjectContext: CoreDataStack.instance.context,
+															  sectionNameKeyPath: nil,
+															  cacheName: nil)
+		fetchedResultsController.delegate = self
+		performFetch()
 		
 		if (tag.totalBooks == Tag.nilValueForInt) {
 			rerollCollage()
@@ -153,21 +172,23 @@ class CollageViewController: UIViewController {
 //MARK: UICollectionViewDataSource + UICollectionViewDelegate extension
 
 extension CollageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-	/*func numberOfSections(in collectionView: UICollectionView) -> Int {
-		
-		//TODO: use FCR
-	}*/
+	func numberOfSections(in collectionView: UICollectionView) -> Int {
+		if let sections = fetchedResultsController.sections {
+			return sections.count
+		}
+		return 0
+	}
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		//TODO: use FCR
-		return tag.books.count
+		if let sections = fetchedResultsController.sections {
+			return sections[section].numberOfObjects
+		}
+		return 0
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BookCollectionViewCell
-		
-		//TODO: use FCR
-		let book = tag.books[indexPath.row]
+		let book = fetchedResultsController.object(at: indexPath) as! Book
 		
 		cell.imageView.backgroundColor = UIColor.white
 		cell.imageView.contentMode = .scaleAspectFill
@@ -187,9 +208,9 @@ extension CollageViewController: UICollectionViewDataSource, UICollectionViewDel
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let book = tag.books[indexPath.row]
+		let book = fetchedResultsController.object(at: indexPath) as! Book
 		if book.imageData != nil {
-			performSegue(withIdentifier: bookSegueIdentifier, sender: tag.books[indexPath.row])
+			performSegue(withIdentifier: bookSegueIdentifier, sender: book)
 		}
 	}
 }
@@ -197,5 +218,44 @@ extension CollageViewController: UICollectionViewDataSource, UICollectionViewDel
 //MARK: NSFetchedResultsControllerDelegate implementation
 
 extension CollageViewController: NSFetchedResultsControllerDelegate {
-	//TODO: Fill this in
+	
+	func performFetch() {
+		do {
+			try fetchedResultsController.performFetch()
+		} catch let e as NSError {
+			print("Error while trying to perform a search: \n\(e)\n\(fetchedResultsController)")
+		}
+	}
+	
+	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		insertedIndexPaths = []
+		updatedIndexPaths = []
+		deletedIndexPaths = []
+	}
+	
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+					didChange anObject: Any,
+					at indexPath: IndexPath?,
+					for type: NSFetchedResultsChangeType,
+					newIndexPath: IndexPath?) {
+		
+		switch type {
+		case .insert:
+			insertedIndexPaths.append(newIndexPath!)
+		case .delete:
+			deletedIndexPaths.append(indexPath!)
+		case .update:
+			updatedIndexPaths.append(indexPath!)
+		case .move:
+			print("We aren't doing moves so this should never be seen.")
+		}
+	}
+	
+	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		bookCollectionView.performBatchUpdates({
+			self.bookCollectionView.insertItems(at: self.insertedIndexPaths)
+			self.bookCollectionView.deleteItems(at: self.deletedIndexPaths)
+			self.bookCollectionView.reloadItems(at: self.updatedIndexPaths)
+		}, completion: nil)
+	}
 }

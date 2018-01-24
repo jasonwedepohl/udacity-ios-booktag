@@ -98,7 +98,7 @@ class GoodreadsClient {
 				if tag.totalBooks == 0 {
 					completion(true, nil)
 				} else {
-					self.getRandomPageOfBooksForTag(tag, 0, completion)
+					self.getRandomPageOfBooksForTag(tag, 0, [], completion)
 				}
 			} else {
 				completion(false, DisplayError.parse)
@@ -108,12 +108,15 @@ class GoodreadsClient {
 		task.resume()
 	}
 	
-	func getRandomPageOfBooksForTag(_ tag: Tag, _ callCount: Int, _ completion: @escaping (_ successful: Bool, _ displayError: String?) -> ()) {
+	func getRandomPageOfBooksForTag(_ tag: Tag,
+									_ callCount: Int,
+									_ booksToAdd: [BookResult],
+									_ completion: @escaping (_ successful: Bool, _ displayError: String?) -> ()) {
 		
-		//reset collage if we are starting a new chain of calls
-		if callCount == 0 {
-			tag.books = [Book]()
-		}
+		//booksToAdd is a running collection of the books added to a tag. We need to keep track of this because
+		//this function can be called up to four times until enough suitable books have been found. Only when
+		//this recursive chain is complete are the books stored to the Core Data main context.
+		var booksToAdd = booksToAdd
 		
 		let maxPage = min(goodreadsMaxPage, max(1, tag.totalBooks / pageSize - 1))
 		let randomPage = Int(arc4random_uniform(UInt32(maxPage))) + 1
@@ -133,46 +136,60 @@ class GoodreadsClient {
 				return
 			}
 			
-			guard let books = self.parseBooksFromSearchResponse(data!) else {
+			guard let currentRecursionBookResults = self.parseBooksFromSearchResponse(data!) else {
 				completion(false, DisplayError.parse)
 				return
 			}
 			
-			if books.count > 0 {
-				let numberOfBooksThatCanBeAdded = self.collageBookCount - tag.books.count
-				let numberOfBooksThatWillBeAdded = min(numberOfBooksThatCanBeAdded, books.count)
-				let indexOfLastBookToAdd = min(numberOfBooksThatWillBeAdded, books.count - 1)
+			if currentRecursionBookResults.count > 0 {
+				let numberOfBooksThatCanBeAdded = self.collageBookCount - booksToAdd.count
+				let numberOfBooksThatWillBeAdded = min(numberOfBooksThatCanBeAdded, currentRecursionBookResults.count)
+				let indexOfLastBookToAdd = min(numberOfBooksThatWillBeAdded, currentRecursionBookResults.count - 1)
 				
-				tag.books.append(contentsOf: books[0..<indexOfLastBookToAdd])
+				booksToAdd.append(contentsOf: currentRecursionBookResults[0..<indexOfLastBookToAdd])
 			}
 			
 			//check if we have enough books for a collage - if not, check if we haven't hit our limit on search retries
-			if tag.books.count < self.collageBookCount && callCount < self.maxSearchRetryCount {
+			if booksToAdd.count < self.collageBookCount && callCount < self.maxSearchRetryCount {
 				
 				//following Goodreads API rules, wait 1 second before making the next call
 				DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(self.goodreadsSleepSeconds)), execute: {
 				
 					//call recursively with an incremented call count
-					self.getRandomPageOfBooksForTag(tag, callCount + 1, completion)
+					self.getRandomPageOfBooksForTag(tag, callCount + 1, booksToAdd, completion)
 				})
 				
 				//skip saving to Core Data and downloading book images until we have enough books
 				return
 			}
 			
-			//TODO: Save books to Core Data
+			var books = [Book]()
+			for bookResult in booksToAdd {
+				
+				//create book in main context
+				let book = Book(bookResult.id,
+								bookResult.title,
+								bookResult.author,
+								bookResult.rating,
+								bookResult.imageUrl,
+								tag,
+								CoreDataStack.instance.context)
+				books.append(book)
+			}
+			
+			//save books to Core Data main context
+			CoreDataStack.instance.save()
 			
 			//handle completion now so UI shows activity indicators for each book to be downloaded
 			completion(true, nil)
 			
 			//continue to download books in background, FRC will handle updates
-			for book in tag.books {
-				self.downloadBookImage(fromUrl: book.imageUrl) { (successful, imageData, displayError) in
+			for book in books {
+				self.downloadBookImage(fromUrl: book.imageUrl!) { (successful, imageData, displayError) in
 					if successful {
 						//set book image data to image data
 						book.imageData = imageData
-						
-						//TODO: save Core Data here
+						CoreDataStack.instance.save()
 					} else {
 						print("Could not download image: \(displayError!)")
 					}
@@ -203,7 +220,7 @@ class GoodreadsClient {
 	func getBookDetails(forBook book: Book, _ completion: @escaping (_ successful: Bool, _ displayError: String?) -> ()) {
 		
 		let methodParameters = [ ParameterKeys.apiKey: ParameterValues.apiKey ]
-		let path = bookShowPath.replacingOccurrences(of: GoodreadsClient.bookShowPathIDMarker, with: book.id)
+		let path = bookShowPath.replacingOccurrences(of: GoodreadsClient.bookShowPathIDMarker, with: book.id!)
 		let request = getRequest(withPath: path, withParameters: methodParameters)
 		
 		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -220,7 +237,8 @@ class GoodreadsClient {
 				return
 			}
 			
-			//TODO: Save book details to Core Data
+			//save book details in main context
+			CoreDataStack.instance.save()
 			
 			completion(true, nil)
 		}
@@ -231,7 +249,7 @@ class GoodreadsClient {
 	private func getSearchRequestParameters(forTag tag: Tag) -> [String:String] {
 		return [
 			ParameterKeys.apiKey: ParameterValues.apiKey,
-			ParameterKeys.query: tag.text
+			ParameterKeys.query: tag.text!
 		]
 	}
 	
@@ -263,12 +281,12 @@ class GoodreadsClient {
 		return Int32(totalBooks)
 	}
 	
-	private func parseBooksFromSearchResponse(_ data: Data) -> [Book]? {
+	private func parseBooksFromSearchResponse(_ data: Data) -> [BookResult]? {
 		let xml = SWXMLHash.parse(data)
 		
 		let works = xml[XMLTag.goodreadsResponse][XMLTag.search][XMLTag.results][XMLTag.work].all
 		
-		var books = [Book]()
+		var bookResults = [BookResult]()
 		for work in works {
 			
 			guard let rating = work[XMLTag.averageRating].element?.text else {
@@ -303,11 +321,11 @@ class GoodreadsClient {
 				return nil
 			}
 			
-			let book = Book(bookID, title, author, rating, imageURL)
-			books.append(book)
+			let bookResult = BookResult(id: bookID, title: title, imageUrl: imageURL, rating: rating, author: author)
+			bookResults.append(bookResult)
 		}
 		
-		return books
+		return bookResults
 	}
 	
 	private func parseDetails(forBook book: Book, _ data: Data) -> Bool {
@@ -343,5 +361,13 @@ class GoodreadsClient {
 		book.setDetails(isbn, isbn13, description, publicationYear, numberOfPages)
 		
 		return true
+	}
+	
+	struct BookResult {
+		let id: String
+		let title: String
+		let imageUrl: String
+		let rating: String
+		let author: String
 	}
 }

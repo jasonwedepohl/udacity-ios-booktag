@@ -46,7 +46,7 @@ class BookViewController: UIViewController {
 		coverImage.image = UIImage(data: book.imageData!)
 		
 		//download book details if we don't have them yet
-		if book.description == nil {
+		if book.bookDescription == nil {
 			
 			waitingSpinner.show(view)
 
@@ -80,10 +80,10 @@ class BookViewController: UIViewController {
 	
 	private func setContent() {
 		pagesLabel.text = "\(book.numberOfPages!) pages"
-		publishedYearLabel.text = "First published in \(book.publicationYear!)"
-		ratingLabel.text = "Rating: \(book.rating)/5"
+		publishedYearLabel.text = "First published in \(book.publishedYear!)"
+		ratingLabel.text = "Rating: \(book.rating!)/5"
 		isbnLabel.text = "ISBN: \(book.isbn!)"
 		isbn13Label.text = "ISBN13: \(book.isbn13!)"
-		descriptionLabel.text = book.description
+		descriptionLabel.text = book.bookDescription
 	}
 }

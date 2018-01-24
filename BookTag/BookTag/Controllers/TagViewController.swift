@@ -15,6 +15,10 @@ class TagViewController: UIViewController {
 	let collageSegueIdentifier = "CollageSegue"
 	let cellIdentifier = "TagCell"
 	
+	//MARK: Properties
+	
+	var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+	
 	//MARK: Outlets
 	
 	@IBOutlet var tagTableView: UITableView!
@@ -30,10 +34,9 @@ class TagViewController: UIViewController {
 		alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { [alert] (_) in
 			let textField = alert.textFields![0]
 			
-			//TODO: Add tag to core data
-			
-			let tag = Tag(text: textField.text!)
-			(UIApplication.shared.delegate as! AppDelegate).tags.append(tag)
+			//add tag to core data
+			let tag = Tag(textField.text!, CoreDataStack.instance.context)
+			CoreDataStack.instance.save()
 			
 			self.performSegue(withIdentifier: self.collageSegueIdentifier, sender: tag)
 		}))
@@ -45,14 +48,31 @@ class TagViewController: UIViewController {
 	
 	//MARK: UIViewController overrides
 	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		//init FRC and tell it to get all tags from main context
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Tag.entityName)
+		fetchRequest.sortDescriptors = []
+		fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+															  managedObjectContext: CoreDataStack.instance.context,
+															  sectionNameKeyPath: nil,
+															  cacheName: nil)
+		fetchedResultsController.delegate = self
+		performFetch()
+	}
+	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		//TODO: load all tags from core data main context into table view
-		let tags = (UIApplication.shared.delegate as! AppDelegate).tags
-		tagTableView.reloadData()
-		tagTableView.isHidden = tags.count == 0
-		noTagsLabel.isHidden = tags.count != 0
+		//Count the tags - if there are no tags, hide the table view and show the "no tags" label
+		if let sections = fetchedResultsController.sections {
+			if sections.count == 1 {
+				let tagCount = sections[0].numberOfObjects
+				tagTableView.isHidden = tagCount == 0
+				noTagsLabel.isHidden = tagCount != 0
+			}
+		}
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,22 +99,28 @@ class TagViewController: UIViewController {
 }
 
 //MARK: UITableViewDelegate and UITableViewDataSource
-
+var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
 extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: UITableViewDataSource
 	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		if let sections = fetchedResultsController.sections {
+			return sections.count
+		}
+		return 0
+	}
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		
-		//TODO: Use Core Data tag count
-		return (UIApplication.shared.delegate as! AppDelegate).tags.count
+		if let sections = fetchedResultsController.sections {
+			return sections[section].numberOfObjects
+		}
+		return 0
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-		
-		//TODO: Get cell from Core Data (use FRC)
-		let tag = (UIApplication.shared.delegate as! AppDelegate).tags[indexPath.row]
+		let tag = fetchedResultsController!.object(at: indexPath) as! Tag
 		
 		cell.textLabel!.text = tag.text
 		
@@ -108,9 +134,14 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	//handle deletion
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+		
 		if (editingStyle == .delete) {
-			//TODO: Delete tag from Core Data main context
-			(UIApplication.shared.delegate as! AppDelegate).tags.remove(at: indexPath.row)
+			//remove tag from main context
+			let tag = fetchedResultsController!.object(at: indexPath) as! Tag
+			CoreDataStack.instance.context.delete(tag)
+			CoreDataStack.instance.save()
+			
+			//remove tag from table view
 			tableView.deleteRows(at: [indexPath], with: .automatic)
 		}
 	}
@@ -119,9 +150,65 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	//go to collage for tag on row tap
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
-		//TODO: get tag from Core Data
-		let tag = (UIApplication.shared.delegate as! AppDelegate).tags[indexPath.row]
+		let tag = fetchedResultsController!.object(at: indexPath) as! Tag
 		performSegue(withIdentifier: collageSegueIdentifier, sender: tag)
+	}
+}
+
+// MARK: NSFetchedResultsControllerDelegate
+
+extension TagViewController: NSFetchedResultsControllerDelegate {
+	
+	func performFetch() {
+		do {
+			try fetchedResultsController.performFetch()
+		} catch let e as NSError {
+			print("Error while trying to perform a search: \n\(e)\n\(fetchedResultsController)")
+		}
+	}
+	
+	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		tagTableView.beginUpdates()
+	}
+	
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+					didChange sectionInfo: NSFetchedResultsSectionInfo,
+					atSectionIndex sectionIndex: Int,
+					for type: NSFetchedResultsChangeType) {
+		
+		let set = IndexSet(integer: sectionIndex)
+		
+		switch (type) {
+		case .insert:
+			tagTableView.insertSections(set, with: .automatic)
+		case .delete:
+			tagTableView.deleteSections(set, with: .automatic)
+		default:
+			print("This message should never be seen.")
+			break
+		}
+	}
+	
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+					didChange anObject: Any,
+					at indexPath: IndexPath?,
+					for type: NSFetchedResultsChangeType,
+					newIndexPath: IndexPath?) {
+		
+		switch(type) {
+		case .insert:
+			tagTableView.insertRows(at: [newIndexPath!], with: .fade)
+		case .delete:
+			tagTableView.deleteRows(at: [indexPath!], with: .fade)
+		case .update:
+			tagTableView.reloadRows(at: [indexPath!], with: .fade)
+		case .move:
+			tagTableView.deleteRows(at: [indexPath!], with: .fade)
+			tagTableView.insertRows(at: [newIndexPath!], with: .fade)
+		}
+	}
+	
+	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		tagTableView.endUpdates()
 	}
 }
