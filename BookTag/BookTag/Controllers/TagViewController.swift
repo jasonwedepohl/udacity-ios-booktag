@@ -8,7 +8,7 @@
 import CoreData
 import UIKit
 
-class TagViewController: UIViewController {
+class TagViewController: BaseController {
 	
 	//MARK: Constants
 	
@@ -18,11 +18,15 @@ class TagViewController: UIViewController {
 	//MARK: Properties
 	
 	var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+	var tableCellBackgroundColor: UIColor!
+	var tableCellTextColor: UIColor!
 	
 	//MARK: Outlets
 	
 	@IBOutlet var tagTableView: UITableView!
 	@IBOutlet var noTagsLabel: UILabel!
+	@IBOutlet var addButton: UIBarButtonItem!
+	@IBOutlet var toggleNightModeButton: UIBarButtonItem!
 	
 	//MARK: Actions
 	
@@ -44,6 +48,10 @@ class TagViewController: UIViewController {
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 		
 		present(alert, animated: true, completion: nil)
+	}
+	
+	@IBAction func setNightMode() {
+		super.toggleNightMode()
 	}
 	
 	//MARK: UIViewController overrides
@@ -96,6 +104,42 @@ class TagViewController: UIViewController {
 			navigationItem.backBarButtonItem = backItem
 		}
 	}
+	
+	//MARK: BaseController overrides for night mode
+	
+	override func useDayColors() {
+		super.useDayColors()
+		
+		tagTableView.separatorColor = iosDefaultTint
+		tagTableView.backgroundColor = UIColor.white
+		tableCellTextColor = UIColor.black
+		tableCellBackgroundColor = UIColor.white
+		setTableCellColors()
+		
+		addButton.tintColor = iosDefaultTint
+		toggleNightModeButton.tintColor = iosDefaultTint
+	}
+	
+	override func useNightColors() {
+		super.useNightColors()
+		
+		tagTableView.separatorColor = UIColor.cyan
+		tagTableView.backgroundColor = nightModeBackgroundColor
+		tableCellTextColor = UIColor.white
+		tableCellBackgroundColor =  nightModeBackgroundColor
+		setTableCellColors()
+		
+		addButton.tintColor = UIColor.white
+		toggleNightModeButton.tintColor = UIColor.white
+	}
+	
+	private func setTableCellColors() {
+		for cell in tagTableView.visibleCells {
+			cell.textLabel?.textColor = tableCellTextColor
+			cell.backgroundColor = tableCellBackgroundColor
+			cell.tintColor = tableCellBackgroundColor
+		}
+	}
 }
 
 //MARK: UITableViewDelegate and UITableViewDataSource
@@ -122,6 +166,8 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 		let tag = fetchedResultsController!.object(at: indexPath) as! Tag
 		
+		cell.backgroundColor = tableCellBackgroundColor
+		cell.textLabel?.textColor = tableCellTextColor
 		cell.textLabel!.text = tag.text
 		
 		return cell

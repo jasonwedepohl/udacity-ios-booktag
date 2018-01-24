@@ -19,6 +19,7 @@
 		4DCCACD720189037005A4DBB /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCACD320189037005A4DBB /* Tag+CoreDataProperties.swift */; };
 		4DCCACD820189037005A4DBB /* Book+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCACD420189037005A4DBB /* Book+CoreDataClass.swift */; };
 		4DCCACD920189037005A4DBB /* Book+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCACD520189037005A4DBB /* Book+CoreDataProperties.swift */; };
+		4DCCACDD2018BAF1005A4DBB /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCACDC2018BAF1005A4DBB /* BaseController.swift */; };
 		4DDB8BB6200F8A7F007680F9 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BB5200F8A7F007680F9 /* ErrorAlert.swift */; };
 		4DDB8BB8200F8ACC007680F9 /* WaitingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BB7200F8ACC007680F9 /* WaitingSpinner.swift */; };
 		4DDB8BBA200F8B93007680F9 /* CollageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8BB9200F8B93007680F9 /* CollageViewController.swift */; };
@@ -45,6 +46,7 @@
 		4DCCACD320189037005A4DBB /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4DCCACD420189037005A4DBB /* Book+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4DCCACD520189037005A4DBB /* Book+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4DCCACDC2018BAF1005A4DBB /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		4DDB8BB5200F8A7F007680F9 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 		4DDB8BB7200F8ACC007680F9 /* WaitingSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingSpinner.swift; sourceTree = "<group>"; };
 		4DDB8BB9200F8B93007680F9 /* CollageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				4D216C8D200E50860061B263 /* TagViewController.swift */,
 				4DDB8BB9200F8B93007680F9 /* CollageViewController.swift */,
 				4D07929F201103BE000B95D7 /* BookViewController.swift */,
+				4DCCACDC2018BAF1005A4DBB /* BaseController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				4DDB8BC6200FB4AE007680F9 /* BookCollectionViewCell.swift in Sources */,
 				4DDB8BB8200F8ACC007680F9 /* WaitingSpinner.swift in Sources */,
 				4DDB8BB6200F8A7F007680F9 /* ErrorAlert.swift in Sources */,
+				4DCCACDD2018BAF1005A4DBB /* BaseController.swift in Sources */,
 				4DCCACD820189037005A4DBB /* Book+CoreDataClass.swift in Sources */,
 				4DCCACBE201889CF005A4DBB /* CoreDataStack.swift in Sources */,
 				4D0792A0201103BE000B95D7 /* BookViewController.swift in Sources */,
