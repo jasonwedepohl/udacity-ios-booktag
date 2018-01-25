@@ -1,7 +1,6 @@
 platform :ios, '10.0'
+use_frameworks!
 
 target 'BookTag' do
-  use_frameworks!
-  
-  pod 'SWXMLHash', '~> 4.3.5'
+  pod 'SWXMLHash', '~> 4.0.0'
 end
